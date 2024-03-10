@@ -69,3 +69,21 @@ void teststruct(){
     reg3.type='3';
     printf("%c %c %c",reg1.type,reg2.type,reg3.type);
 }
+
+void testEndian(){
+    int a=0x12345678;
+    char *p=(char*)&a;
+    printf("%x %x %x %x\n",p[0],p[1],p[2],p[3]);
+
+    union {
+        int a;
+        char b;
+    }c;
+
+    c.a=1;
+    if(c.b==1){
+        printf("little endian\n");
+    }else{
+        printf("big endian\n");
+    }
+}
