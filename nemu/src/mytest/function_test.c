@@ -15,3 +15,27 @@ void testunion(){
   strcpy(data.str,"Test Union");
   printf("data.s:%s\n",data.str);
 }
+
+struct {
+    char type;
+    union {
+        int intNum;
+        float floatNum;
+        char str[20];
+    };
+} aunion;
+
+void testaunion(){
+    aunion.type='i';
+    aunion.intNum=10;
+    printf("the value of intNum is %d\n",aunion.intNum);
+
+    aunion.type='f';
+    aunion.floatNum=200.5;
+    printf("the value of floatNum is %f\n",aunion.floatNum);
+
+    aunion.type='s';
+    strcpy(aunion.str,"Test Aunion");
+    printf("the value of str is %s\n",aunion.str);
+}
+
