@@ -1,7 +1,28 @@
 int init_monitor(int, char *[]);
 void ui_mainloop(int);
 
+
+#include <stdio.h>
+#include <string.h>
+union Data{
+  int i;
+  float f;
+  char str[20];
+};
+
+void testunion(){
+  union Data data;
+  data.i=10;
+  data.f=220.5;
+  strcpy(data.str,"Test Union");
+  printf("data.i: %d\n",data.i);
+  printf("data.f:%f\n",data.f);
+  printf("data.s:%s\n",data.str);
+}
+
 int main(int argc, char *argv[]) {
+  testunion();
+
   /* Initialize the monitor. */
   int is_batch_mode = init_monitor(argc, argv);
 
