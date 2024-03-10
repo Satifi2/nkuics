@@ -46,3 +46,29 @@ void testenum(){
         printf("%d\n",i);
     }
 }
+
+struct Reg1{
+    char type;
+    int index;
+};
+
+struct {
+    char type;
+    int index;
+}reg2;
+
+typedef struct{
+    char type;
+    int index;
+}Reg3;
+
+void teststruct(){
+    struct Reg1 reg1;
+    reg1.type='1';
+    
+    reg2.type='2';
+    
+    Reg3 reg3;
+    reg3.type='3';
+    printf("%c %c %c",reg1.type,reg2.type,reg3.type);
+}
