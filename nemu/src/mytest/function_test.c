@@ -67,7 +67,7 @@ void teststruct(){
     
     Reg3 reg3;
     reg3.type='3';
-    printf("%c %c %c",reg1.type,reg2.type,reg3.type);
+    printf("%c %c %c\n",reg1.type,reg2.type,reg3.type);
 }
 
 void testEndian(){
