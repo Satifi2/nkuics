@@ -25,7 +25,7 @@ typedef struct {
 
     struct
     {
-      rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+      rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;//typedef uint32_t rtlreg_t;
     };
 
   };

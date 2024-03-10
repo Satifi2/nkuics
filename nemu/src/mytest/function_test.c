@@ -49,17 +49,14 @@ void testenum(){
 
 struct Reg1{
     char type;
-    int index;
 };
 
 struct {
     char type;
-    int index;
 }reg2;
 
 typedef struct{
     char type;
-    int index;
 }Reg3;
 
 void teststruct(){
