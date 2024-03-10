@@ -13,10 +13,10 @@ union Data{
 void testunion(){
   union Data data;
   data.i=10;
-  data.f=220.5;
-  strcpy(data.str,"Test Union");
   printf("data.i: %d\n",data.i);
+  data.f=220.5;
   printf("data.f:%f\n",data.f);
+  strcpy(data.str,"Test Union");
   printf("data.s:%s\n",data.str);
 }
 
