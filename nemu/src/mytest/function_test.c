@@ -39,3 +39,10 @@ void testaunion(){
     printf("the value of str is %s\n",aunion.str);
 }
 
+enum {RED,GREEN,BLUE};
+
+void testenum(){
+    for(int i=RED;i<=BLUE;i++){
+        printf("%d\n",i);
+    }
+}
