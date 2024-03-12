@@ -117,9 +117,18 @@ static bool make_token(char* e) {
           for (int j = position - substr_len; j < position; ++j) {
             num = num * 10 + (int)(e[j] - '0');
           }
-          uint32_t* puint = (uint32_t*)tokens[nr_token++].str;
-          *puint = (uint32_t)num;
+          uint32_t* pointer_uint = (uint32_t*)tokens[nr_token++].str;
+          *pointer_uint = (uint32_t)num;
           break;
+				case TK_HEX:
+        case TK_SYMB: 
+        case TK_REG:
+				  tokens[nr_token].type = rules[i].token_type;
+				  for(int j = position - substr_len ; j < position; ++j){
+				    tokens[nr_token].str[j-(position - substr_len)] = e[j];
+				  }
+				  tokens[nr_token++].str[substr_len] = '\0';
+					break;
         default: 					   
           tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
