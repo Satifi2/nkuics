@@ -39,26 +39,32 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(){
+  printf("cmd_is is called\n");
   return 0;
 }
 
 static int cmd_info(){
+  printf("cmd_info is called\n");
   return 0;
 }
 
 static int cmd_p(){
+  printf("cmd_p is called\n");
   return 0;
 }
 
 static int cmd_x(){
+  printf("cmd_x is called\n");
   return 0;
 }
 
 static int cmd_w(){
+  printf("cmd_w is called\n");
   return 0;
 }
 
 static int cmd_d(){
+  printf("cmd_d is called\n");
   return 0;
 }
 static struct {
