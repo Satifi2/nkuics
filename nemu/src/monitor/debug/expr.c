@@ -21,10 +21,9 @@ enum {
   TK_NUM,          // 数字
   TK_HEX,          // 十六进制数字
   TK_REG,          // 寄存器名
-  TK_SYMB,         // 符号
   TK_LPAREN,         // 左括号
   TK_RPAREN,        // 右括号
-  TK_POINT,        // 点
+  TK_POINTER,        // 点
   TK_NOTEQUAL,     // 不等号
 };
 
@@ -37,7 +36,7 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-
+  {"!=", TK_NOTEQUAL},
   {" +", TK_NOTYPE},    // spaces
   {"==", TK_EQ},         // equal
   {"\\+", TK_ADD},         // plus
@@ -50,10 +49,8 @@ static struct rule {
   {"0[xX][0-9a-fA-F]+", TK_HEX},
   {"[0-9]+", TK_NUM},
   {"\\$[a-z]+", TK_REG},
-  {"[a-zA-Z_][a-zA-Z0-9_]*", TK_SYMB},
   {"\\(", TK_LPAREN},
   {"\\)", TK_RPAREN},
-  {"!=", TK_NOTEQUAL},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -139,7 +136,6 @@ static bool make_token(char* e) {
         uint32_t* pointer_hex = (uint32_t*)tokens[nr_token].str;
         *pointer_hex = hex_num;
         nr_token++;
-        case TK_SYMB:
         case TK_REG:
         tokens[nr_token].type = rules[i].token_type;
         for (int j = position - substr_len; j < position; ++j) {
@@ -206,7 +202,7 @@ uint32_t get_value(int s, int e, bool* success) {
     else if (tokens[s].type == TK_MINUS) {//相当于-123
       return -get_value(e, e, success);
     }
-    else if (tokens[s].type == TK_POINT) {//相当于*(一个地址)
+    else if (tokens[s].type == TK_POINTER) {//相当于*(一个地址)
       return vaddr_read(get_value(e, e, success), 4);
     }
   }
