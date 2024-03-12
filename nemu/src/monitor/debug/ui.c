@@ -42,7 +42,9 @@ static int cmd_si(){
   return 0;
 }
 
-
+static int cmd_info(){
+  return 0;
+}
 
 
 static struct {
@@ -55,7 +57,9 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  {"si","Pause the execution after the program steps through N instructions; if N is not provided, the default is 1.",cmd_si}
+  {"si","Pause the execution after the program steps through N instructions; if N is not provided, the default is 1.",cmd_si},
+  {"info","Print the status of the registers, print the information of the watchpoints",cmd_info}
+
 
 };
 
