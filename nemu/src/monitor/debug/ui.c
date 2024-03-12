@@ -49,11 +49,11 @@ static int cmd_si(char *args) {
         cpu_exec(n);
       } else {
         // 如果n不是正整数
-        printf("invalid input: %s \n", args);
+        printf("Exception: invalid input: %s \n", args);
       }
     } else {
       // 如果无法解析出步数，打印错误信息
-      printf("invalid input: %s \n", args);
+      printf("Exception: invalid input: %s \n", args);
     }
   } else {
     // 如果args为NULL，执行1步指令
@@ -63,8 +63,25 @@ static int cmd_si(char *args) {
 }
 
 
-static int cmd_info(){
-  printf("cmd_info is called\n");
+static int cmd_info(char *args) {
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL) {
+    printf("Exception: subcommand r or w is required.\n");
+  }
+  else {
+    if (strcmp(arg, "r") == 0) {
+      for (int i = 0; i < 8; i++) {
+        printf("%s: 0x%08X\n", reg_name(i, 4), reg_l(i));
+      }
+      printf("eip: 0x%08X\n", cpu.eip);
+    }
+    else if (strcmp(arg, "w") == 0) {
+      //打印监视点，暂时不实现
+    }
+    else {
+      printf("Exception: invalid subcommand \'%s\'.\n", arg);
+    }
+  }
   return 0;
 }
 
