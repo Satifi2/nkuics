@@ -7,11 +7,27 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
-
-  /* TODO: Add more token types */
-
+  TK_NOTYPE = 256, // 无类型
+  TK_EQ,           // 等于
+  TK_ADD,          // 加号
+  TK_SUB,          // 减号
+  TK_MINUS,        // 负号或减法
+  TK_MUL,          // 乘号
+  TK_DIV,          // 除号
+  TK_AND,          // 逻辑与
+  TK_OR,           // 逻辑或
+  TK_NOT,          // 逻辑非
+  TK_NUM,          // 数字
+  TK_HEX,          // 十六进制数字
+  TK_REG,          // 寄存器名
+  TK_SYMB,         // 符号
+  TK_LEFT,         // 左括号
+  TK_RIGHT,        // 右括号
+  TK_POINT,        // 点
+  TK_EQUAL,        // 等号
+  TK_NOTEQUAL,     // 不等号
 };
+
 
 static struct rule {
   char *regex;
