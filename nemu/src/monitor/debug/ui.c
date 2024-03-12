@@ -46,7 +46,21 @@ static int cmd_info(){
   return 0;
 }
 
+static int cmd_p(){
+  return 0;
+}
 
+static int cmd_x(){
+  return 0;
+}
+
+static int cmd_w(){
+  return 0;
+}
+
+static int cmd_d(){
+  return 0;
+}
 static struct {
   char *name;
   char *description;
@@ -58,9 +72,11 @@ static struct {
 
   /* TODO: Add more commands */
   {"si","Pause the execution after the program steps through N instructions; if N is not provided, the default is 1.",cmd_si},
-  {"info","Print the status of the registers, print the information of the watchpoints",cmd_info}
-
-
+  {"info","Print the status of the registers, print the information of the watchpoints",cmd_info},
+  {"p","Calculate the value of the expression EXPR",cmd_p},
+  {"x","Calculate the value of the expression EXPR, use the result as the starting memory address, and output N consecutive 4-byte groups in hexadecimal form.",cmd_x},
+  {"w","Pause the program execution when the value of the expression EXPR changes.",cmd_w},
+  {"d","Remove the watchpoint with the sequence number N.",cmd_d}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
