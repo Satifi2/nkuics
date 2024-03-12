@@ -112,3 +112,35 @@ void strtokTest() {
         token = strtok(NULL, delim);
     }
 }
+
+#include <regex.h>
+
+void test_regex() {
+    regex_t regex;
+    const char *pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+    const char *test_string = "myemail@example.com";
+    char errbuf[100];
+    regmatch_t pmatch[1];
+
+    // 编译正则表达式
+    int ret = regcomp(&regex, pattern, REG_EXTENDED);
+    if (ret) {
+        regerror(ret, &regex, errbuf, sizeof(errbuf));
+        fprintf(stderr, "Regex compilation failed: %s\n", errbuf);
+        return;
+    }
+
+    // 在字符串中执行正则表达式匹配
+    ret = regexec(&regex, test_string, 1, pmatch, 0);
+    if (!ret) {
+        printf("Match found for '%s' in '%s'\n", pattern, test_string);
+    } else if (ret == REG_NOMATCH) {
+        printf("No match found for '%s' in '%s'\n", pattern, test_string);
+    } else {
+        regerror(ret, &regex, errbuf, sizeof(errbuf));
+        fprintf(stderr, "Regex match failed: %s\n", errbuf);
+    }
+
+    // 释放正则表达式
+    regfree(&regex);
+}
