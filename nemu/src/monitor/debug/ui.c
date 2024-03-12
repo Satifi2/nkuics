@@ -92,7 +92,7 @@ static int cmd_p(char* args) {
   // printf("cmd_p is called\n");
   if (args == NULL) {
     puts("invalid inputs\n");
-    return -1;
+    return 0;
   }
   bool success;
   uint32_t res = expr(args, &success);
