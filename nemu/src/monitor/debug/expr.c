@@ -164,10 +164,6 @@ static bool make_token(char* e) {
   return true;
 }
 
-uint32_t get_value(){
-  return 0;
-}
-
 uint32_t expr(char* e, bool* success) {
   if (!make_token(e)) {
     *success = false;
@@ -175,5 +171,6 @@ uint32_t expr(char* e, bool* success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  return get_value();
+  TODO();
+  // return get_value();
 }

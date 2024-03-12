@@ -96,7 +96,7 @@ static int cmd_p(char* args) {
   }
   bool success;
   uint32_t res = expr(args, &success);
-  if (!res)printf("the expression is invalid%s\n", args);
+  if (!success)printf("the expression is invalid %s\n", args);
   else printf("%d\n", res);
 
   return 0;

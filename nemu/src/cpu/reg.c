@@ -41,3 +41,31 @@ void reg_test() {
 
   assert(eip_sample == cpu.eip);
 }
+
+uint32_t reg_val(char *reg) {
+    // Check for 32-bit registers
+    for (int i = 0; i < 8; ++i) {
+        if (strcmp(reg, regsl[i]) == 0) {
+            return reg_l(i);
+        }
+    }
+
+    // Check for 16-bit registers
+    for (int i = 0; i < 8; ++i) {
+        if (strcmp(reg, regsw[i]) == 0) {
+            return reg_w(i);
+        }
+    }
+
+    // Check for 8-bit registers
+    for (int i = 0; i < 8; ++i) {
+        if (strcmp(reg, regsb[i]) == 0) {
+            return reg_b(i);
+        }
+    }
+
+    // If the register name does not match, handle the error appropriately
+    // For now, we just return 0 and possibly log an error message
+    fprintf(stderr, "Invalid register name: %s\n", reg);
+    return 0;
+}
