@@ -29,7 +29,7 @@ enum {
 
 
 static struct rule {
-  char *regex;
+  char* regex;
   int token_type;
 } rules[] = {
 
@@ -68,7 +68,7 @@ void init_regex() {
   char error_msg[128];
   int ret;
 
-  for (i = 0; i < NR_REGEX; i ++) {
+  for (i = 0; i < NR_REGEX; i++) {
     ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
     if (ret != 0) {
       regerror(ret, &re[i], error_msg, 128);
@@ -85,7 +85,7 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
-static bool make_token(char *e) {
+static bool make_token(char* e) {
   int position = 0;
   int i;
   regmatch_t pmatch;
@@ -94,13 +94,13 @@ static bool make_token(char *e) {
 
   while (e[position] != '\0') {
     /* Try all rules one by one. */
-    for (i = 0; i < NR_REGEX; i ++) {
+    for (i = 0; i < NR_REGEX; i++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        char *substr_start = e + position;
+        char* substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+          i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -109,7 +109,20 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+        case TK_NOTYPE:
+          break;
+        case TK_NUM:
+          tokens[nr_token].type = rules[i].token_type;
+          int num = 0;
+          for (int j = position - substr_len; j < position; ++j) {
+            num = num * 10 + (int)(e[j] - '0');
+          }
+          uint32_t* puint = (uint32_t*)tokens[nr_token++].str;
+          *puint = (uint32_t)num;
+          break;
+        default: 					   
+          tokens[nr_token].type = rules[i].token_type;
+					nr_token++;
         }
 
         break;
@@ -125,7 +138,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-uint32_t expr(char *e, bool *success) {
+uint32_t expr(char* e, bool* success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
