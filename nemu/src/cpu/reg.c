@@ -42,7 +42,7 @@ void reg_test() {
   assert(eip_sample == cpu.eip);
 }
 
-uint32_t reg_val(char *reg) {
+uint32_t reg_value(char *reg) {
     // Check for 32-bit registers
     for (int i = 0; i < 8; ++i) {
         if (strcmp(reg, regsl[i]) == 0) {

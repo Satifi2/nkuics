@@ -43,6 +43,7 @@ static inline int check_reg_index(int index) {
   assert(index >= 0 && index < 8);
   return index;
 }
+uint32_t reg_value(char *reg);
 
 #define reg_l(index) (cpu.gpr[check_reg_index(index)]._32)
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
