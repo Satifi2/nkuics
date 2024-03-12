@@ -1,8 +1,12 @@
 int init_monitor(int, char *[]);
 void ui_mainloop(int);
+void sscanfTest();
+void strtokTest();
 
 int main(int argc, char *argv[]) {
 
+  sscanfTest();
+  strtokTest();
   /* Initialize the monitor. */
   int is_batch_mode = init_monitor(argc, argv);
 

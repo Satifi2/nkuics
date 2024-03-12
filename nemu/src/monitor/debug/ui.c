@@ -90,8 +90,27 @@ static int cmd_p(){
   return 0;
 }
 
-static int cmd_x(){
-  printf("cmd_x is called\n");
+static int cmd_x(char *args) {
+  uint32_t N, Add;
+  if (sscanf(args, "%u %x", &N, &Add) != 2) {
+    printf("Exception: invalid command format. Usage: x N ADDRESS\n");
+    return -1;
+  }
+  if (N <= 0) {
+    printf("Exception: N must be greater than 0.\n");
+    return -1;
+  }
+
+  printf("%d byte(s) of memory mapped from 0x%08X:\n", 4 * N, Add);
+  for (uint32_t i = 0; i < N; ++i) {
+    uint32_t MemContent = vaddr_read(Add + i * 4, 4);
+    printf("0x%08X: ", Add + i * 4);
+    for (int j = 0; j < 4; ++j) {
+      printf("%02X ", (MemContent >> (j * 8)) & 0xFF);
+    }
+    printf("\n");
+  }
+
   return 0;
 }
 
