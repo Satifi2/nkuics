@@ -11,7 +11,7 @@ void cpu_exec(uint64_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
-  static char *line_read = NULL;
+  static char* line_read = NULL;
 
   if (line_read) {
     free(line_read);
@@ -27,18 +27,18 @@ char* rl_gets() {
   return line_read;
 }
 
-static int cmd_c(char *args) {
+static int cmd_c(char* args) {
   cpu_exec(-1);
   return 0;
 }
 
-static int cmd_q(char *args) {
+static int cmd_q(char* args) {
   return -1;
 }
 
-static int cmd_help(char *args);
+static int cmd_help(char* args);
 
-static int cmd_si(char *args) {
+static int cmd_si(char* args) {
   // 默认步数为1
   int n = 1;
   if (args != NULL) {
@@ -47,15 +47,18 @@ static int cmd_si(char *args) {
       if (n > 0) {
         // 如果n是正整数，则执行n步指令
         cpu_exec(n);
-      } else {
+      }
+      else {
         // 如果n不是正整数
         printf("Exception: invalid input: %s \n", args);
       }
-    } else {
+    }
+    else {
       // 如果无法解析出步数，打印错误信息
       printf("Exception: invalid input: %s \n", args);
     }
-  } else {
+  }
+  else {
     // 如果args为NULL，执行1步指令
     cpu_exec(1);
   }
@@ -63,8 +66,8 @@ static int cmd_si(char *args) {
 }
 
 
-static int cmd_info(char *args) {
-  char *arg = strtok(NULL, " ");
+static int cmd_info(char* args) {
+  char* arg = strtok(NULL, " ");
   if (arg == NULL) {
     printf("Exception: subcommand r or w is required.\n");
   }
@@ -85,20 +88,29 @@ static int cmd_info(char *args) {
   return 0;
 }
 
-static int cmd_p(){
-  printf("cmd_p is called\n");
+static int cmd_p(char* args) {
+  // printf("cmd_p is called\n");
+  if (args == NULL) {
+    puts("invalid inputs\n");
+    return -1;
+  }
+  bool success;
+  uint32_t res = expr(args, &success);
+  if (!res)printf("the expression is invalid%s\n", args);
+  else printf("%d\n", res);
+
   return 0;
 }
 
-static int cmd_x(char *args) {
+static int cmd_x(char* args) {
   uint32_t N, EXPR;
   if (sscanf(args, "%u %x", &N, &EXPR) != 2) {
     printf("Exception: invalid command format \n");
-    return -1;
+    return 0;
   }
   if (N <= 0) {
     printf("Exception: N should be bigger than 0.\n");
-    return -1;
+    return 0;
   }
 
   printf("%d byte(s) of memory at 0x%08X:\n", 4 * N, EXPR);
@@ -114,20 +126,20 @@ static int cmd_x(char *args) {
   return 0;
 }
 
-static int cmd_w(){
+static int cmd_w() {
   printf("cmd_w is called\n");
   return 0;
 }
 
-static int cmd_d(){
-  
+static int cmd_d() {
+
   return 0;
 }
 static struct {
-  char *name;
-  char *description;
-  int (*handler) (char *);
-} cmd_table [] = {
+  char* name;
+  char* description;
+  int (*handler) (char*);
+} cmd_table[] = {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
@@ -143,19 +155,19 @@ static struct {
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
 
-static int cmd_help(char *args) {
+static int cmd_help(char* args) {
   /* extract the first argument */
-  char *arg = strtok(NULL, " ");
+  char* arg = strtok(NULL, " ");
   int i;
 
   if (arg == NULL) {
     /* no argument given */
-    for (i = 0; i < NR_CMD; i ++) {
+    for (i = 0; i < NR_CMD; i++) {
       printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
     }
   }
   else {
-    for (i = 0; i < NR_CMD; i ++) {
+    for (i = 0; i < NR_CMD; i++) {
       if (strcmp(arg, cmd_table[i].name) == 0) {
         printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
         return 0;
@@ -173,17 +185,17 @@ void ui_mainloop(int is_batch_mode) {
   }
 
   while (1) {
-    char *str = rl_gets();
-    char *str_end = str + strlen(str);
+    char* str = rl_gets();
+    char* str_end = str + strlen(str);
 
     /* extract the first token as the command */
-    char *cmd = strtok(str, " ");
+    char* cmd = strtok(str, " ");
     if (cmd == NULL) { continue; }
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
      */
-    char *args = cmd + strlen(cmd) + 1;
+    char* args = cmd + strlen(cmd) + 1;
     if (args >= str_end) {
       args = NULL;
     }
@@ -194,7 +206,7 @@ void ui_mainloop(int is_batch_mode) {
 #endif
 
     int i;
-    for (i = 0; i < NR_CMD; i ++) {
+    for (i = 0; i < NR_CMD; i++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
         if (cmd_table[i].handler(args) < 0) { return; }
         break;
