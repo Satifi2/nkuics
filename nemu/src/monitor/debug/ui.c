@@ -91,20 +91,20 @@ static int cmd_p(){
 }
 
 static int cmd_x(char *args) {
-  uint32_t N, Add;
-  if (sscanf(args, "%u %x", &N, &Add) != 2) {
-    printf("Exception: invalid command format. Usage: x N ADDRESS\n");
+  uint32_t N, EXPR;
+  if (sscanf(args, "%u %x", &N, &EXPR) != 2) {
+    printf("Exception: invalid command format \n");
     return -1;
   }
   if (N <= 0) {
-    printf("Exception: N must be greater than 0.\n");
+    printf("Exception: N should be bigger than 0.\n");
     return -1;
   }
 
-  printf("%d byte(s) of memory mapped from 0x%08X:\n", 4 * N, Add);
+  printf("%d byte(s) of memory at 0x%08X:\n", 4 * N, EXPR);
   for (uint32_t i = 0; i < N; ++i) {
-    uint32_t MemContent = vaddr_read(Add + i * 4, 4);
-    printf("0x%08X: ", Add + i * 4);
+    uint32_t MemContent = vaddr_read(EXPR + i * 4, 4);
+    printf("0x%08X: ", EXPR + i * 4);
     for (int j = 0; j < 4; ++j) {
       printf("%02X ", (MemContent >> (j * 8)) & 0xFF);
     }
