@@ -38,10 +38,32 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
-static int cmd_si(){
-  printf("cmd_is is called\n");
+static int cmd_si(char *args) {
+  // 默认步数为1
+  int n = 1;
+  if (args != NULL) {
+    // 尝试从args中解析出步数n
+    if (sscanf(args, "%d", &n) == 1) {
+      if (n > 0) {
+        // 如果n是正整数，则执行n步指令
+        cpu_exec(n);
+      } else {
+        // 如果n不是正整数，打印错误信息并执行1步指令
+        printf("invalid input: %s \n", args);
+        cpu_exec(1);
+      }
+    } else {
+      // 如果无法解析出步数，打印错误信息并执行1步指令
+      printf("invalid input: %s \n", args);
+      cpu_exec(1);
+    }
+  } else {
+    // 如果args为NULL，执行1步指令
+    cpu_exec(1);
+  }
   return 0;
 }
+
 
 static int cmd_info(){
   printf("cmd_info is called\n");
@@ -64,7 +86,7 @@ static int cmd_w(){
 }
 
 static int cmd_d(){
-  printf("cmd_d is called\n");
+  
   return 0;
 }
 static struct {
