@@ -21,10 +21,9 @@ enum {
   TK_HEX,          // 十六进制数字
   TK_REG,          // 寄存器名
   TK_SYMB,         // 符号
-  TK_LEFT,         // 左括号
-  TK_RIGHT,        // 右括号
+  TK_LPAREN,         // 左括号
+  TK_RPAREN,        // 右括号
   TK_POINT,        // 点
-  TK_EQUAL,        // 等号
   TK_NOTEQUAL,     // 不等号
 };
 
@@ -39,8 +38,22 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+  {"==", TK_EQ},         // equal
+  {"\\+", TK_ADD},         // plus
+  {"-", TK_SUB},
+  {"\\*", TK_MUL},
+  {"/", TK_DIV},
+  {"&&", TK_AND},
+  {"\\|\\|", TK_OR},
+  {"!", TK_NOT},
+  {"[0-9]+", TK_NUM},
+  {"0[xX][0-9a-fA-F]+", TK_HEX},
+  {"\\$[a-zA-Z]+", TK_REG},
+  {"[a-zA-Z_][a-zA-Z0-9_]*", TK_SYMB},
+  {"\\(", TK_LPAREN},
+  {"\\)", TK_RPAREN},
+  {"\\.", TK_POINT},
+  {"!=", TK_NOTEQUAL},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
