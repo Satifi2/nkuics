@@ -104,7 +104,7 @@ static int cmd_p(char* args) {
 
 static int cmd_x(char* args) {
   uint32_t N, EXPR;
-  if (sscanf(args, "%u %x", &N, &EXPR) != 2) {
+  if (sscanf(args, "%d %x", &N, &EXPR) != 2) {
     printf("Exception: invalid command format \n");
     return 0;
   }
