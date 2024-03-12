@@ -2,6 +2,6 @@
 *
 !*/
 !Makefile
-!*.md
+!README.md
 !.gitignore
 !init.sh

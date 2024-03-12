@@ -4,5 +4,5 @@
 !Makefile*
 !*.[cSh]
 !.gitignore
-!*.md
+!README.md
 !runall.sh

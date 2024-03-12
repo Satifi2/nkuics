@@ -38,6 +38,13 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(){
+  return 0;
+}
+
+
+
+
 static struct {
   char *name;
   char *description;
@@ -48,6 +55,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  {"si","Pause the execution after the program steps through N instructions; if N is not provided, the default is 1.",cmd_si}
 
 };
 
