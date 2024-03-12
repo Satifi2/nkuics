@@ -89,7 +89,7 @@ void testEndian() {
     }
 }
 
-void  ssanfTest() {
+void  sscanfTest() {
     char* str = "100 200";
     int a, b;
     if (sscanf(str, "%d %d", &a, &b) == 2) {
