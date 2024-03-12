@@ -48,14 +48,12 @@ static int cmd_si(char *args) {
         // 如果n是正整数，则执行n步指令
         cpu_exec(n);
       } else {
-        // 如果n不是正整数，打印错误信息并执行1步指令
+        // 如果n不是正整数
         printf("invalid input: %s \n", args);
-        cpu_exec(1);
       }
     } else {
-      // 如果无法解析出步数，打印错误信息并执行1步指令
+      // 如果无法解析出步数，打印错误信息
       printf("invalid input: %s \n", args);
-      cpu_exec(1);
     }
   } else {
     // 如果args为NULL，执行1步指令
