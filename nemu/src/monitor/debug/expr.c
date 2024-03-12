@@ -49,11 +49,10 @@ static struct rule {
   {"!", TK_NOT},
   {"[0-9]+", TK_NUM},
   {"0[xX][0-9a-fA-F]+", TK_HEX},
-  {"\\$[a-zA-Z]+", TK_REG},
+  {"\\$[a-z]+", TK_REG},
   {"[a-zA-Z_][a-zA-Z0-9_]*", TK_SYMB},
   {"\\(", TK_LPAREN},
   {"\\)", TK_RPAREN},
-  {"\\.", TK_POINT},
   {"!=", TK_NOTEQUAL},
 };
 
