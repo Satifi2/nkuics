@@ -29,12 +29,10 @@ WP* new_wp(char *expr, int val) {
   
   WP* wp = free_; // 从空闲列表中获取一个监视点
   free_ = free_->next; // 更新空闲列表的头指针
-  
   // 初始化监视点
   strncpy(wp->expr, expr, 512); // 复制表达式
   wp->value = val; // 设置值
   wp->next = NULL; // 新监视点将被加到链表尾部，所以next为NULL
-  
   // 将监视点加入到活动链表中
   if (head == NULL) {
     // 如果活动链表为空，新监视点即为头节点
@@ -47,7 +45,6 @@ WP* new_wp(char *expr, int val) {
     }
     last->next = wp;
   }
-  
   return wp; // 返回新创建的监视点
 }
 
@@ -57,10 +54,10 @@ void print_wp() {
     return;
   }
   
-  printf("NO\texp\n");
+  printf("NO\texp\torigin_val\n");
   WP* wp = head;
   while (wp != NULL) {
-    printf("%d\t%s\n", wp->NO, wp->expr);
+    printf("%d\t%s\t%d\n", wp->NO, wp->expr,wp->value);
     wp = wp->next;
   }
 }
