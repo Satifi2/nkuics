@@ -299,7 +299,7 @@ uint32_t get_value(int s, int e, bool* success) {
       *success = false;
       return 0;
     }
-    return val1 / val2;
+    return (int)val1 / (int)val2;
     case TK_AND: return val1 && val2;
     case TK_OR: return val1 || val2;
     case TK_EQ: return val1 == val2;
@@ -353,9 +353,6 @@ uint32_t expr(char* e, bool* success) {
       printf("tokens[%d].type = %s (%d), tokens[%d].str : %s\n", i, typeName, tokens[i].type, i, tokens[i].str);
     }
   }
-
-
-
 
   /* TODO: Insert codes to evaluate the expression. */
   *success = true;
