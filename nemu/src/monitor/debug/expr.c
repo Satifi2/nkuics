@@ -127,8 +127,6 @@ static bool make_token(char* e) {
          */
 
         switch (rules[i].token_type) {
-        case TK_NOTYPE:
-        break;
         case TK_NUM:
         tokens[nr_token].type = rules[i].token_type;
         int num = 0;
@@ -157,16 +155,13 @@ static bool make_token(char* e) {
         uint32_t* pointer_hex = (uint32_t*)tokens[nr_token].str;
         *pointer_hex = hex_num;
         nr_token++;
-        case TK_REG:
+        break;
+        default:
         tokens[nr_token].type = rules[i].token_type;
         for (int j = position - substr_len; j < position; ++j) {
           tokens[nr_token].str[j - (position - substr_len)] = e[j];
         }
         tokens[nr_token].str[substr_len] = '\0';
-        nr_token++;
-        break;
-        default:
-        tokens[nr_token].type = rules[i].token_type;
         nr_token++;
         }
         break;
