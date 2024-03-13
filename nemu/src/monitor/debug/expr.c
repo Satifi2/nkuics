@@ -238,13 +238,13 @@ uint32_t expr(char* e, bool* success) {
     if (tokens[i].type == TK_NUM || tokens[i].type == TK_HEX) {
       uint32_t num;
       memcpy(&num, tokens[i].str, sizeof(num));
-      printf("tokens[%d].type = %s (%d), tokens[%d].str = %u\n", i, typeName, tokens[i].type, i, num);
+      printf("tokens[%d].type = %s (%d), tokens[%d].str : %u\n", i, typeName, tokens[i].type, i, num);
     }
     else if (tokens[i].type == TK_REG) {
-      printf("tokens[%d].type = %s (%d), tokens[%d].str = %s\n", i, typeName, tokens[i].type, i, tokens[i].str);
+      printf("tokens[%d].type = %s (%d), tokens[%d].str : %s\n", i, typeName, tokens[i].type, i, tokens[i].str);
     }
     else {
-      printf("tokens[%d].type = %s (%d), tokens[%d].str = %s\n", i, typeName, tokens[i].type, i, tokens[i].str);
+      printf("tokens[%d].type = %s (%d), tokens[%d].str : %s\n", i, typeName, tokens[i].type, i, tokens[i].str);
     }
   }
 
