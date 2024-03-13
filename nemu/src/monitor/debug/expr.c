@@ -310,6 +310,16 @@ uint32_t expr(char* e, bool* success) {
   }
   nr_token = j; // 更新token的数量
 
+  for (int i = 0; i < nr_token; ++i) {
+    if (tokens[i].type == TK_SUB && 
+    (i == 0 ||  tokens[i-1].type == TK_LPAREN  || op_priority(tokens[i - 1].type) <50 || tokens[i-1].type == TK_MINUS || tokens[i-1].type == TK_POINTER)) {
+      tokens[i].type = TK_MINUS; // 标记为负号
+    }
+    else if (tokens[i].type == TK_MUL && 
+    (i == 0 ||  tokens[i-1].type == TK_LPAREN  || op_priority(tokens[i - 1].type) <50 || tokens[i-1].type == TK_MINUS || tokens[i-1].type == TK_POINTER)) {
+      tokens[i].type = TK_MINUS; // 标记为解引用
+    }
+  }
 
   //测试打印tokens
   for (int i = 0; i < nr_token; ++i) {
@@ -326,6 +336,8 @@ uint32_t expr(char* e, bool* success) {
       printf("tokens[%d].type = %s (%d), tokens[%d].str : %s\n", i, typeName, tokens[i].type, i, tokens[i].str);
     }
   }
+
+
 
 
   /* TODO: Insert codes to evaluate the expression. */
