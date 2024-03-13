@@ -268,7 +268,7 @@ uint32_t get_value(int s, int e, bool* success) {
     }
     // 根据找到的关键运算符分割表达式并递归求值
     uint32_t val1 = get_value(s, key_op_pos - 1, success);
-    // if (!*success) return 0; // 检查递归调用是否成功,这里有很细微的地方，对于-(1+2)关键运算符是-，此时get_value(0,-1)应该返回0是正确的。
+    if (!*success) return 0; 
 
     uint32_t val2 = get_value(key_op_pos + 1, e, success);
     if (!*success) return 0; // 检查递归调用是否成功
@@ -317,7 +317,7 @@ uint32_t expr(char* e, bool* success) {
     }
     else if (tokens[i].type == TK_MUL && 
     (i == 0 ||  tokens[i-1].type == TK_LPAREN  || op_priority(tokens[i - 1].type) <50 || tokens[i-1].type == TK_MINUS || tokens[i-1].type == TK_POINTER)) {
-      tokens[i].type = TK_MINUS; // 标记为解引用
+      tokens[i].type = TK_MUL; // 标记为解引用
     }
   }
 
