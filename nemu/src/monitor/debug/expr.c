@@ -200,8 +200,8 @@ bool check_parentheses(int s, int e) {
 
 int op_priority(int type) {
   switch (type) {
-  case TK_OR: return 11;
-  case TK_AND: return 10;
+  case TK_OR: return 10;
+  case TK_AND: return 11;
   case TK_EQ: return 20;
   case TK_NOTEQUAL: return 20;
   case TK_ADD: return 30;
