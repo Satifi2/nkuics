@@ -208,8 +208,6 @@ int op_priority(int type) {
   case TK_SUB: return 30;
   case TK_MUL: return 40;
   case TK_DIV: return 40;
-  case TK_LPAREN: return 50;
-  case TK_RPAREN: return 50;  //左右括号优先级为50
   default: return 99999; // 非运算符或不支持的运算符
   }
 }
