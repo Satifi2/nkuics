@@ -85,7 +85,8 @@ static int cmd_info(char* args) {
       }
     }
     else if (strcmp(arg, "w") == 0) {
-      //打印监视点，暂时不实现
+      //打印监视点
+      print_wp();
     }
     else {
       printf("Exception: invalid subcommand \'%s\'.\n", arg);
@@ -138,10 +139,27 @@ static int cmd_x(char* args) {
   return 0;
 }
 
-static int cmd_w() {
-  printf("cmd_w is called\n");
+static int cmd_w(char* args) {
+  if (args == NULL || *args == '\0') {
+    printf("Exception: Expression is required.\n");
+    return 0;
+  }
+  bool success;
+  uint32_t val = expr(args, &success);
+  if (!success) {
+    printf("Exception: Failed to evaluate the expression.\n");
+    return 0;
+  }
+  WP* wp = new_wp(args, val);
+  if (wp == NULL) {
+    printf("Exception: Failed to insert a new watchpoint.\n");
+    return 0;
+  }
+  // Optional: Print information about the newly created watchpoint
+  printf("New watchpoint %d: %s, initial value = %u\n", wp->NO, wp->expr, wp->value);
   return 0;
 }
+
 
 static int cmd_d() {
 
@@ -226,5 +244,5 @@ void ui_mainloop(int is_batch_mode) {
     }
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
-    }
   }
+}
