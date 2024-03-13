@@ -61,3 +61,33 @@ void print_wp() {
     wp = wp->next;
   }
 }
+
+void free_wp(int NO) {
+    WP *wp = head;
+    WP *prev = NULL;
+
+    // 遍历活动监视点链表，查找指定NO的监视点
+    while (wp != NULL && wp->NO != NO) {
+        prev = wp;
+        wp = wp->next;
+    }
+
+    // 如果没有找到，则打印错误信息并返回
+    if (wp == NULL) {
+        printf("Exception: Watchpoint number %d not found.\n", NO);
+        return;
+    }
+
+    // 如果找到了监视点，从活动链表中移除
+    if (prev != NULL) {
+        prev->next = wp->next; // 将前一个监视点的next指向当前监视点的next
+    } else {
+        head = wp->next; // 如果要删除的是头节点，则更新头节点
+    }
+
+    // 将删除的监视点放回空闲链表
+    wp->next = free_; // 将当前监视点的next指向空闲链表的头部
+    free_ = wp; // 更新空闲链表的头部为当前监视点
+
+    printf("Watchpoint number %d has been deleted.\n", NO);
+}
