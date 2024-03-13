@@ -226,9 +226,12 @@ uint32_t get_value(int s, int e, bool* success) {
       return reg_value(tokens[s].str + 1);//因为寄存器有一个$符号，所以要跳过
     }
   }
-  else if (s == e - 1) {
+  else if (s == e - 1) {     
     if (tokens[s].type == TK_NOT) {//相当于!123
       return !get_value(e, e, success);
+    }
+    if (tokens[s].type == TK_ADD) {//相当于!123
+      return get_value(e, e, success);
     }
     else if (tokens[s].type == TK_MINUS) {//相当于-123
       return -get_value(e, e, success);
@@ -262,7 +265,21 @@ uint32_t get_value(int s, int e, bool* success) {
       }
     }
 
-    if (key_op_pos == -1) { // 如果没有找到关键运算符，报错
+    if (key_op_pos == -1 ) { // 如果没有找到关键运算符，报错
+      //在没有关键运算符的情况下，如果第一个token是TK_MINUS,有可能是-(1+2)这种情况，需要求出(1+2),如果可以求出，返回-(1+2)
+      //类似的还有TK_POINTER和TK_ADD和TK_NOT这一种单目运算符，如果都不是，或者求不出来，报错
+      if (tokens[s].type == TK_MINUS) {
+        return -get_value(s + 1, e, success);
+      }
+      else if (tokens[s].type == TK_POINTER) {
+        return vaddr_read(get_value(s + 1, e, success), 4);
+      }
+      else if (tokens[s].type == TK_ADD) {
+        return get_value(s + 1, e, success);
+      }
+      else if (tokens[s].type == TK_NOT) {
+        return !get_value(s + 1, e, success);
+      }
       *success = false;
       return 0;
     }
