@@ -217,6 +217,14 @@ int op_priority(int type) {
   }
 }
 
+int power(int a, int b) {
+  int result = 1;
+  for (int i = 0; i < b; i++) {
+    result *= a;
+  }
+  return result;
+}
+
 uint32_t get_value(int s, int e, bool* success) {
   if (s > e || *success == false) {//相当于没有意义
     *success = false;
@@ -309,7 +317,7 @@ uint32_t get_value(int s, int e, bool* success) {
     case TK_OR: return val1 || val2;
     case TK_EQ: return val1 == val2;
     case TK_NOTEQUAL: return val1 != val2;
-    case TK_POWER: return pow((double)val1, (double)val2);
+    case TK_POWER: return power(val1, val2);
     default: // 不支持的运算符，报错
     *success = false;
     return 0;
