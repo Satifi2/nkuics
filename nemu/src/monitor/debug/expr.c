@@ -304,9 +304,7 @@ uint32_t expr(char* e, bool* success) {
   int j = 0;
   for (int i = 0; i < nr_token; ++i) {
     if (tokens[i].type != TK_NOTYPE) {
-      if (i != j) { // 如果有空白token，会导致i和j不同步，需要复制
-        tokens[j] = tokens[i];
-      }
+      tokens[j] = tokens[i];
       j++;
     }
   }
