@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <regex.h>
 #include "cpu/reg.h"//因为需要用字符串获取寄存器值，所以需要引入
+#include <math.h>
 
 enum {
   TK_NOTYPE = 256, // 无类型
@@ -25,6 +26,7 @@ enum {
   TK_RPAREN,        // 右括号
   TK_POINTER,        // 点
   TK_NOTEQUAL,     // 不等号
+  TK_POWER       // 乘方，为了证明我对这个实验比较熟悉，我多实现了一个乘方运算。
 };
 
 const char* getTokenTypeName(int type) {//为了方便输出enum对应的字符串，我还写了一个函数，可有可无
@@ -46,6 +48,7 @@ const char* getTokenTypeName(int type) {//为了方便输出enum对应的字符�
   case TK_RPAREN: return "TK_RPAREN";
   case TK_POINTER: return "TK_POINTER";
   case TK_NOTEQUAL: return "TK_NOTEQUAL";
+  case TK_POWER: return "TK_POWER";
   default: return "Unknown Type";
   }
 }
@@ -72,6 +75,7 @@ static struct rule {
   {"\\$[a-z]+", TK_REG},// 因为$是开头和结尾的特殊含义，所以要加上转义字符
   {"\\(", TK_LPAREN}, //因为()表示优先级， 有特殊含义，所以要加上转义字符
   {"\\)", TK_RPAREN},
+  {"\\^", TK_POWER}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -208,6 +212,7 @@ int op_priority(int type) {
   case TK_SUB: return 30;
   case TK_MUL: return 40;
   case TK_DIV: return 40;
+  case TK_POWER: return 45;
   default: return 99999; // 非运算符或不支持的运算符
   }
 }
@@ -304,6 +309,7 @@ uint32_t get_value(int s, int e, bool* success) {
     case TK_OR: return val1 || val2;
     case TK_EQ: return val1 == val2;
     case TK_NOTEQUAL: return val1 != val2;
+    case TK_POWER: return pow(val1, val2);
     default: // 不支持的运算符，报错
     *success = false;
     return 0;
