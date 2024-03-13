@@ -317,7 +317,7 @@ uint32_t expr(char* e, bool* success) {
     }
     else if (tokens[i].type == TK_MUL && 
     (i == 0 ||  tokens[i-1].type == TK_LPAREN  || op_priority(tokens[i - 1].type) <50 || tokens[i-1].type == TK_MINUS || tokens[i-1].type == TK_POINTER)) {
-      tokens[i].type = TK_MUL; // 标记为解引用
+      tokens[i].type = TK_POINTER; // 标记为解引用
     }
   }
 
