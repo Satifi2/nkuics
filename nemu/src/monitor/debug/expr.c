@@ -27,26 +27,26 @@ enum {
   TK_NOTEQUAL,     // 不等号
 };
 
-const char* getTokenTypeName(int type) {//为了方便输出enum对应的字符串，我还写了一个函数，可有可无
-  switch (type) {
-  case TK_NOTYPE: return "TK_NOTYPE";
-  case TK_EQ: return "TK_EQ";
-  case TK_ADD: return "TK_ADD";
-  case TK_SUB: return "TK_SUB";
-  case TK_MINUS: return "TK_MINUS";
-  case TK_MUL: return "TK_MUL";
-  case TK_DIV: return "TK_DIV";
-  case TK_AND: return "TK_AND";
-  case TK_OR: return "TK_OR";
-  case TK_NOT: return "TK_NOT";
-  case TK_NUM: return "TK_NUM";
-  case TK_HEX: return "TK_HEX";
-  case TK_REG: return "TK_REG";
-  case TK_LPAREN: return "TK_LPAREN";
-  case TK_RPAREN: return "TK_RPAREN";
-  case TK_POINTER: return "TK_POINTER";
-  case TK_NOTEQUAL: return "TK_NOTEQUAL";
-  default: return "Unknown Type";
+const char* getTokenTypeName(int type) {
+  switch(type) {
+    case TK_NOTYPE: return "TK_NOTYPE";
+    case TK_EQ: return "TK_EQ";
+    case TK_ADD: return "TK_ADD";
+    case TK_SUB: return "TK_SUB";
+    case TK_MINUS: return "TK_MINUS";
+    case TK_MUL: return "TK_MUL";
+    case TK_DIV: return "TK_DIV";
+    case TK_AND: return "TK_AND";
+    case TK_OR: return "TK_OR";
+    case TK_NOT: return "TK_NOT";
+    case TK_NUM: return "TK_NUM";
+    case TK_HEX: return "TK_HEX";
+    case TK_REG: return "TK_REG";
+    case TK_LPAREN: return "TK_LPAREN";
+    case TK_RPAREN: return "TK_RPAREN";
+    case TK_POINTER: return "TK_POINTER";
+    case TK_NOTEQUAL: return "TK_NOTEQUAL";
+    default: return "Unknown Type";
   }
 }
 static struct rule {
@@ -240,20 +240,19 @@ uint32_t expr(char* e, bool* success) {
   }
   //测试打印tokens
   for (int i = 0; i < nr_token; ++i) {
-    const char* typeName = getTokenTypeName(tokens[i].type);
     if (tokens[i].type == TK_NUM || tokens[i].type == TK_HEX) {
       uint32_t num;
       memcpy(&num, tokens[i].str, sizeof(num));
-      printf("tokens[%d].type = %s (%d), tokens[%d].str = %u\n", i, typeName, tokens[i].type, i, num);
+      printf("tokens[%d].type = %d, tokens[%d].str = %u\n", i, tokens[i].type, i, num);
+       //额外输出tokens[i].type对应的enum
     }
     else if (tokens[i].type == TK_REG) {
-      printf("tokens[%d].type = %s (%d), tokens[%d].str = %s\n", i, typeName, tokens[i].type, i, tokens[i].str);
+      printf("tokens[%d].type = %d, tokens[%d].str = %s\n", i, tokens[i].type, i, tokens[i].str);
     }
     else {
-      printf("tokens[%d].type = %s (%d), tokens[%d].str = %s\n", i, typeName, tokens[i].type, i, tokens[i].str);
+      printf("tokens[%d].type = %d, tokens[%d].str = %s\n", i, tokens[i].type, i, tokens[i].str);
     }
   }
-
 
   /* TODO: Insert codes to evaluate the expression. */
   *success = true;
