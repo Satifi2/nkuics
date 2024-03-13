@@ -77,6 +77,12 @@ static int cmd_info(char* args) {
       for (int i = 0; i < 8; i++) {
         printf("%s: 0x%08X\n", reg_name(i, 4), reg_l(i));
       }
+      for (int i = 0; i < 8; i++) {
+        printf("%s: 0x%08X\n", reg_name(i, 4), reg_w(i));
+      }
+      for (int i = 0; i < 8; i++) {
+        printf("%s: 0x%08X\n", reg_name(i, 4), reg_b(i));
+      }
     }
     else if (strcmp(arg, "w") == 0) {
       //打印监视点，暂时不实现
@@ -102,34 +108,34 @@ static int cmd_p(char* args) {
 }
 
 static int cmd_x(char* args) {
-    uint32_t N;
-    char* expr_str = NULL;
-    if (sscanf(args, "%d %m[^]]", &N, &expr_str) != 2) {
-        printf("Exception: invalid command format \n");
-        return 0;
-    }
-    if (N <= 0) {
-        printf("Exception: N should be bigger than 0.\n");
-        free(expr_str); // 释放由 sscanf 分配的内存
-        return 0;
-    }
-    bool success;
-    uint32_t EXPR = expr(expr_str, &success);
-    free(expr_str); // 释放由 sscanf 分配的内存
-    if (!success) {
-        printf("Exception: failed to evaluate the expression.\n");
-        return 0;
-    }
-    printf("%d byte(s) of memory at 0x%08X:\n", 4 * N, EXPR);
-    for (uint32_t i = 0; i < N; ++i) {
-        uint32_t MemContent = vaddr_read(EXPR + i * 4, 4);
-        printf("0x%08X: ", EXPR + i * 4);
-        for (int j = 0; j < 4; ++j) {
-            printf("%02X ", (MemContent >> (j * 8)) & 0xFF);
-        }
-        printf("\n");
-    }
+  uint32_t N;
+  char* expr_str = NULL;
+  if (sscanf(args, "%d %m[^]]", &N, &expr_str) != 2) {
+    printf("Exception: invalid command format \n");
     return 0;
+  }
+  if (N <= 0) {
+    printf("Exception: N should be bigger than 0.\n");
+    free(expr_str); // 释放由 sscanf 分配的内存
+    return 0;
+  }
+  bool success;
+  uint32_t EXPR = expr(expr_str, &success);
+  free(expr_str); // 释放由 sscanf 分配的内存
+  if (!success) {
+    printf("Exception: failed to evaluate the expression.\n");
+    return 0;
+  }
+  printf("%d byte(s) of memory at 0x%08X:\n", 4 * N, EXPR);
+  for (uint32_t i = 0; i < N; ++i) {
+    uint32_t MemContent = vaddr_read(EXPR + i * 4, 4);
+    printf("0x%08X: ", EXPR + i * 4);
+    for (int j = 0; j < 4; ++j) {
+      printf("%02X ", (MemContent >> (j * 8)) & 0xFF);
+    }
+    printf("\n");
+  }
+  return 0;
 }
 
 static int cmd_w() {
@@ -220,5 +226,5 @@ void ui_mainloop(int is_batch_mode) {
     }
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
+    }
   }
-}
