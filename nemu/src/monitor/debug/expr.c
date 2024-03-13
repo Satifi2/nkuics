@@ -128,41 +128,41 @@ static bool make_token(char* e) {
 
         switch (rules[i].token_type) {
         case TK_NUM:
-          tokens[nr_token].type = rules[i].token_type;
-          int num = 0;
-          for (int j = position - substr_len; j < position; ++j) {
-            num = num * 10 + (int)(e[j] - '0');
-          }
-          uint32_t* pointer_uint = (uint32_t*)tokens[nr_token].str;
-          *pointer_uint = (uint32_t)num;
-          nr_token++;
-          break;
+        tokens[nr_token].type = rules[i].token_type;
+        int num = 0;
+        for (int j = position - substr_len; j < position; ++j) {
+          num = num * 10 + (int)(e[j] - '0');
+        }
+        uint32_t* pointer_uint = (uint32_t*)tokens[nr_token].str;
+        *pointer_uint = (uint32_t)num;
+        nr_token++;
+        break;
         case TK_HEX:
-          tokens[nr_token].type = rules[i].token_type;
-          unsigned int hex_num = 0;
-          for (int j = position - substr_len + 2; j < position; ++j) {// 跳过前缀 '0x' 或 '0X'，所以从索引 2 开始
-            hex_num *= 16; // 乘以 16，因为进制为 16
-            if (e[j] >= '0' && e[j] <= '9') {
-              hex_num += e[j] - '0';
-            }
-            else if (e[j] >= 'a' && e[j] <= 'f') {
-              hex_num += e[j] - 'a' + 10; // 'a' 代表 10
-            }
-            else if (e[j] >= 'A' && e[j] <= 'F') {
-              hex_num += e[j] - 'A' + 10; // 'A' 代表 10
-            }
+        tokens[nr_token].type = rules[i].token_type;
+        unsigned int hex_num = 0;
+        for (int j = position - substr_len + 2; j < position; ++j) {// 跳过前缀 '0x' 或 '0X'，所以从索引 2 开始
+          hex_num *= 16; // 乘以 16，因为进制为 16
+          if (e[j] >= '0' && e[j] <= '9') {
+            hex_num += e[j] - '0';
           }
-          uint32_t* pointer_hex = (uint32_t*)tokens[nr_token].str;
-          *pointer_hex = hex_num;
-          nr_token++;
-          break;
+          else if (e[j] >= 'a' && e[j] <= 'f') {
+            hex_num += e[j] - 'a' + 10; // 'a' 代表 10
+          }
+          else if (e[j] >= 'A' && e[j] <= 'F') {
+            hex_num += e[j] - 'A' + 10; // 'A' 代表 10
+          }
+        }
+        uint32_t* pointer_hex = (uint32_t*)tokens[nr_token].str;
+        *pointer_hex = hex_num;
+        nr_token++;
+        break;
         default:
-          tokens[nr_token].type = rules[i].token_type;
-          for (int j = position - substr_len; j < position; ++j) {
-            tokens[nr_token].str[j - (position - substr_len)] = e[j];
-          }
-          tokens[nr_token].str[substr_len] = '\0';
-          nr_token++;
+        tokens[nr_token].type = rules[i].token_type;
+        for (int j = position - substr_len; j < position; ++j) {
+          tokens[nr_token].str[j - (position - substr_len)] = e[j];
+        }
+        tokens[nr_token].str[substr_len] = '\0';
+        nr_token++;
         }
         break;
       }
@@ -196,6 +196,22 @@ bool check_parentheses(int s, int e) {
   return true;
 }
 
+int op_priority(int type) {
+  switch (type) {
+  case TK_OR: return 10;
+  case TK_AND: return 10;
+  case TK_EQ: return 20;
+  case TK_NOTEQUAL: return 20;
+  case TK_ADD: return 30;
+  case TK_SUB: return 30;
+  case TK_MUL: return 40;
+  case TK_DIV: return 40;
+  case TK_LPAREN: return 50;
+  case TK_RPAREN: return 50;  //左右括号优先级为50
+  default: return 99999; // 非运算符或不支持的运算符
+  }
+}
+
 uint32_t get_value(int s, int e, bool* success) {
   if (s > e || *success == false) {//相当于没有意义
     *success = false;
@@ -223,6 +239,58 @@ uint32_t get_value(int s, int e, bool* success) {
   }
   else if (check_parentheses(s, e) == true) {//相当于(expr)
     return get_value(s + 1, e - 1, success);
+  }
+  else {
+    // 找到关键运算符
+    int min_priority = 50; // 初始化最低优先级
+    int key_op_pos = -1; // 关键运算符位置初始化
+    int lparen_count = 0; // 左括号计数
+    for (int i = s; i <= e; ++i) {
+      if (tokens[i].type == TK_LPAREN) {
+        ++lparen_count;
+      }
+      else if (tokens[i].type == TK_RPAREN) {
+        --lparen_count;
+      }
+      if (lparen_count < 0) { // 如果左括号数<右括号数，报错
+        *success = false;
+        return 0;
+      }
+      if (lparen_count == 0 && op_priority(tokens[i].type) <= min_priority) {
+          min_priority = op_priority(tokens[i].type);
+          key_op_pos = i;
+      }
+    }
+
+    if (key_op_pos == -1) { // 如果没有找到关键运算符，报错
+      *success = false;
+      return 0;
+    }
+    // 根据找到的关键运算符分割表达式并递归求值
+    uint32_t val1 = get_value(s, key_op_pos - 1, success);
+    if (!*success) return 0; // 检查递归调用是否成功
+
+    uint32_t val2 = get_value(key_op_pos + 1, e, success);
+    if (!*success) return 0; // 检查递归调用是否成功
+
+    switch (tokens[key_op_pos].type) {
+    case TK_ADD: return val1 + val2;
+    case TK_SUB: return val1 - val2;
+    case TK_MUL: return val1 * val2;
+    case TK_DIV:
+    if (val2 == 0) { // 除数为0，报错
+      *success = false;
+      return 0;
+    }
+    return val1 / val2;
+    case TK_AND: return val1 && val2;
+    case TK_OR: return val1 || val2;
+    case TK_EQ: return val1 == val2;
+    case TK_NOTEQUAL: return val1 != val2;
+    default: // 不支持的运算符，报错
+    *success = false;
+    return 0;
+    }
   }
   return 0;
 }
