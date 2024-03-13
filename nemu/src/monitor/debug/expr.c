@@ -114,7 +114,7 @@ static bool make_token(char* e) {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        
+
         int substr_len = pmatch.rm_eo;
 
         //已经有更好的输出token的方式了，所以暂时不需要日志了。
@@ -257,8 +257,8 @@ uint32_t get_value(int s, int e, bool* success) {
         return 0;
       }
       if (lparen_count == 0 && op_priority(tokens[i].type) <= min_priority) {
-          min_priority = op_priority(tokens[i].type);
-          key_op_pos = i;
+        min_priority = op_priority(tokens[i].type);
+        key_op_pos = i;
       }
     }
 
@@ -300,6 +300,19 @@ uint32_t expr(char* e, bool* success) {
     *success = false;
     return 0;
   }
+  // 去除空白token
+  int j = 0;
+  for (int i = 0; i < nr_token; ++i) {
+    if (tokens[i].type != TK_NOTYPE) {
+      if (i != j) { // 如果有空白token，会导致i和j不同步，需要复制
+        tokens[j] = tokens[i];
+      }
+      j++;
+    }
+  }
+  nr_token = j; // 更新token的数量
+
+
   //测试打印tokens
   for (int i = 0; i < nr_token; ++i) {
     const char* typeName = getTokenTypeName(tokens[i].type);
