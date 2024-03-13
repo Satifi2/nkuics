@@ -43,6 +43,11 @@ void reg_test() {
 }
 
 uint32_t reg_value(char *reg) {
+    //增加一个和eip的比较,因为寄存器名还可能是eip,此时返回cpu.eip
+    if (strcmp(reg, "eip") == 0) {
+        return cpu.eip;
+    }
+
     // Check for 32-bit registers
     for (int i = 0; i < 8; ++i) {
         if (strcmp(reg, regsl[i]) == 0) {
