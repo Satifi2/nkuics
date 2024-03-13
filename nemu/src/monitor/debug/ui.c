@@ -113,16 +113,13 @@ static int cmd_x(char* args) {
         free(expr_str); // 释放由 sscanf 分配的内存
         return 0;
     }
-
     bool success;
     uint32_t EXPR = expr(expr_str, &success);
     free(expr_str); // 释放由 sscanf 分配的内存
-
     if (!success) {
         printf("Exception: failed to evaluate the expression.\n");
         return 0;
     }
-
     printf("%d byte(s) of memory at 0x%08X:\n", 4 * N, EXPR);
     for (uint32_t i = 0; i < N; ++i) {
         uint32_t MemContent = vaddr_read(EXPR + i * 4, 4);
@@ -132,7 +129,6 @@ static int cmd_x(char* args) {
         }
         printf("\n");
     }
-
     return 0;
 }
 
