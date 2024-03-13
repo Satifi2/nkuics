@@ -52,3 +52,17 @@ gdb: $(BINARY)
 
 clean: 
 	rm -rf $(BUILD_DIR)
+
+.PHONY: count
+count:
+	@echo "Comparing line counts between current branch and 2017 branch within nemu/ directory..."
+	@lines_current=`git ls-files -z *.{c,h} | xargs -0 cat | grep -v "^\s*$$" | wc -l`; \
+	git checkout 2017 > /dev/null 2>&1; \
+	lines_2017=`git ls-files -z *.{c,h} | xargs -0 cat | grep -v "^\s*$$" | wc -l`; \
+	git checkout - > /dev/null 2>&1; \
+	echo "Current branch line count (excluding blank lines): $$lines_current"; \
+	echo "2017 branch line count (excluding blank lines): $$lines_2017"; \
+	diff=$$((lines_current-lines_2017)); \
+	echo "Difference (current - 2017): $$diff"
+
+
