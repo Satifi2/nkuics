@@ -144,3 +144,9 @@ void test_regex() {
     // 释放正则表达式
     regfree(&regex);
 }
+#include<math.h>
+void powTest() {
+    double x = 2.0;
+    double y = 3.0;
+    printf("pow(%f, %f) = %f\n", x, y, pow(x, y));
+}
