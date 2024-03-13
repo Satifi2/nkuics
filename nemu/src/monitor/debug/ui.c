@@ -162,7 +162,17 @@ static int cmd_w(char* args) {
 
 
 static int cmd_d() {
-
+  char* arg = strtok(NULL, " ");
+  if (arg == NULL) {
+    printf("Exception: Watchpoint number is required.\n");
+    return 0;
+  }
+  int NO;
+  if (sscanf(arg, "%d", &NO) != 1) {
+    printf("Exception: Failed to parse the watchpoint number.\n");
+    return 0;
+  }
+  free_wp(NO);
   return 0;
 }
 static struct {
