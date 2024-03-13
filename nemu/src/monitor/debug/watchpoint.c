@@ -91,3 +91,24 @@ void free_wp(int NO) {
 
     printf("Watchpoint number %d has been deleted.\n", NO);
 }
+
+bool check_wp() {
+    bool triggered = false; // 标记是否有监视点被触发
+    WP *wp = head; // 从头节点开始遍历
+    while (wp != NULL) {
+        bool success;
+        uint32_t new_val = expr(wp->expr, &success); // 计算表达式的当前值
+        if (!success) {
+            printf("Error evaluating expression: %s\n", wp->expr);
+        } else {
+            if (wp->value != new_val) { // 比较新旧值
+                printf("Watchpoint %d triggered: %s changed from %u to %u\n",
+                       wp->NO, wp->expr, wp->value, new_val);
+                wp->value = new_val; // 更新存储的值
+                triggered = true; // 标记监视点被触发
+            }
+        }
+        wp = wp->next; // 移动到下一个监视点
+    }
+    return triggered; // 返回是否有监视点被触发
+}

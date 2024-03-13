@@ -1,5 +1,6 @@
 #include "nemu.h"
 #include "monitor/monitor.h"
+#include "monitor/watchpoint.h"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -29,7 +30,12 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
-
+    // 检查监视点是否被触发
+    if (check_wp()) {
+      printf("Watchpoint triggered, stopping execution.\n");
+      nemu_state = NEMU_STOP;
+      break; // 监视点被触发，跳出循环，暂停执行
+    }
 #endif
 
 #ifdef HAS_IOE
