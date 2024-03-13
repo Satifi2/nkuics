@@ -309,7 +309,7 @@ uint32_t get_value(int s, int e, bool* success) {
     case TK_OR: return val1 || val2;
     case TK_EQ: return val1 == val2;
     case TK_NOTEQUAL: return val1 != val2;
-    case TK_POWER: return pow(val1, val2);
+    case TK_POWER: return pow((int)val1, (int)val2);
     default: // 不支持的运算符，报错
     *success = false;
     return 0;
