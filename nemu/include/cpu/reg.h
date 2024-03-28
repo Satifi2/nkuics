@@ -32,8 +32,22 @@ typedef struct {
    * in PA2 able to directly access these registers.
    */
 
-
   vaddr_t eip;
+
+  union{
+    struct {
+      uint8_t CF :1;
+      uint8_t empty1 :5;
+      uint8_t ZF :1;
+      uint8_t SF :1;
+      uint8_t empty2 :1;
+      uint8_t IF :1;
+      uint8_t empty3 :1;
+      uint8_t OF :1;
+      uint32_t empty4 :20;
+    }flags;
+    uint32_t eflags;
+  };
 
 } CPU_state;
 
