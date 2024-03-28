@@ -150,3 +150,15 @@ void powTest() {
     double y = 3.0;
     printf("pow(%f, %f) = %f\n", x, y, pow(x, y));
 }
+
+#include <stdio.h>
+
+#define DEFINE_PRINT_FUNCTION(type , specifier)\
+    void print_##type(type value){\
+        printf(#specifier "\n",value);\
+    }
+
+
+DEFINE_PRINT_FUNCTION(int , %d)
+DEFINE_PRINT_FUNCTION(float, %f)
+DEFINE_PRINT_FUNCTION(char,%c)
