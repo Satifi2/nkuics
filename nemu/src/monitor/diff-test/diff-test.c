@@ -8,9 +8,9 @@
 #include <stdlib.h>
 
 bool gdb_connect_qemu(void);
-bool gdb_memcpy_to_qemu(uint32_t, void *, int);
-bool gdb_getregs(union gdb_regs *);
-bool gdb_setregs(union gdb_regs *);
+bool gdb_memcpy_to_qemu(uint32_t, void*, int);
+bool gdb_getregs(union gdb_regs*);
+bool gdb_setregs(union gdb_regs*);
 bool gdb_si(void);
 void gdb_exit(void);
 
@@ -112,7 +112,7 @@ void init_difftest(void) {
 
     // execute enough instructions to enter protected mode
     int i;
-    for (i = 0; i < 20; i ++) {
+    for (i = 0; i < 20; i++) {
       gdb_si();
     }
   }
@@ -149,7 +149,67 @@ void difftest_step(uint32_t eip) {
 
   // FINISH: Check the registers state with QEMU.
   // Set `diff` as `true` if they are not the same.
-  TODO();
+
+  // bool diff = false; //之前定义了
+
+  // 对比 eax 寄存器的值
+  if (cpu.eax != r.eax) {
+    diff = true;
+    Log("DIFF eax: NEMU=0x%x QEMU=0x%x\n", cpu.eax, r.eax);
+  }
+
+  // 对比 ecx 寄存器的值
+  if (cpu.ecx != r.ecx) {
+    diff = true;
+    Log("DIFF ecx: NEMU=0x%x QEMU=0x%x\n", cpu.ecx, r.ecx);
+  }
+
+  // 对比 edx 寄存器的值
+  if (cpu.edx != r.edx) {
+    diff = true;
+    Log("DIFF edx: NEMU=0x%x QEMU=0x%x\n", cpu.edx, r.edx);
+  }
+
+  // 对比 ebx 寄存器的值
+  if (cpu.ebx != r.ebx) {
+    diff = true;
+    Log("DIFF ebx: NEMU=0x%x QEMU=0x%x\n", cpu.ebx, r.ebx);
+  }
+
+  // 对比 esp 寄存器的值
+  if (cpu.esp != r.esp) {
+    diff = true;
+    Log("DIFF esp: NEMU=0x%x QEMU=0x%x\n", cpu.esp, r.esp);
+  }
+
+  // 对比 ebp 寄存器的值
+  if (cpu.ebp != r.ebp) {
+    diff = true;
+    Log("DIFF ebp: NEMU=0x%x QEMU=0x%x\n", cpu.ebp, r.ebp);
+  }
+
+  // 对比 esi 寄存器的值
+  if (cpu.esi != r.esi) {
+    diff = true;
+    Log("DIFF esi: NEMU=0x%x QEMU=0x%x\n", cpu.esi, r.esi);
+  }
+
+  // 对比 edi 寄存器的值
+  if (cpu.edi != r.edi) {
+    diff = true;
+    Log("DIFF edi: NEMU=0x%x QEMU=0x%x\n", cpu.edi, r.edi);
+  }
+
+  // 对比 eip 寄存器的值
+  if (cpu.eip != r.eip) {
+    diff = true;
+    Log("DIFF eip: NEMU=0x%x QEMU=0x%x\n", cpu.eip, r.eip);
+  }
+
+  // 如果 diff 为 true，则输出差异信息并执行相应的错误处理
+  if (diff) {
+    // 错误处理逻辑
+  }
 
   if (diff) {
     nemu_state = NEMU_END;
