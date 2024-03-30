@@ -220,7 +220,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.eip != r.eip) {
     diff = true;
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("DIFF eip: NEMU=0x%x QEMU=0x%x\n", cpu.eip, r.eip);
+    printf("DIFF eip: NEMU=0x%x QEMU=0x%x\n", cpu.eip, r.eip);
     printf("\033[0m"); // 重置颜色为默认
   }
 
@@ -228,7 +228,7 @@ void difftest_step(uint32_t eip) {
     nemu_state = NEMU_END;
   }else{
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("nemu has no diff from qemu");
+    printf("nemu has no diff from qemu");
     printf("\033[0m"); // 重置颜色为默认
   }
 }
