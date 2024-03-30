@@ -155,60 +155,80 @@ void difftest_step(uint32_t eip) {
   // 对比 eax 寄存器的值
   if (cpu.eax != r.eax) {
     diff = true;
-    Log("DIFF eax: NEMU=0x%x QEMU=0x%x\n", cpu.eax, r.eax);
+    printf("\033[1;31m"); // 设置颜色为亮红色
+    printf("DIFF eax: NEMU=0x%x QEMU=0x%x\n", cpu.eax, r.eax);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   // 对比 ecx 寄存器的值
   if (cpu.ecx != r.ecx) {
     diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("DIFF ecx: NEMU=0x%x QEMU=0x%x\n", cpu.ecx, r.ecx);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   // 对比 edx 寄存器的值
   if (cpu.edx != r.edx) {
     diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("DIFF edx: NEMU=0x%x QEMU=0x%x\n", cpu.edx, r.edx);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   // 对比 ebx 寄存器的值
   if (cpu.ebx != r.ebx) {
     diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("DIFF ebx: NEMU=0x%x QEMU=0x%x\n", cpu.ebx, r.ebx);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   // 对比 esp 寄存器的值
   if (cpu.esp != r.esp) {
     diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("DIFF esp: NEMU=0x%x QEMU=0x%x\n", cpu.esp, r.esp);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   // 对比 ebp 寄存器的值
   if (cpu.ebp != r.ebp) {
     diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("DIFF ebp: NEMU=0x%x QEMU=0x%x\n", cpu.ebp, r.ebp);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   // 对比 esi 寄存器的值
   if (cpu.esi != r.esi) {
     diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("DIFF esi: NEMU=0x%x QEMU=0x%x\n", cpu.esi, r.esi);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   // 对比 edi 寄存器的值
   if (cpu.edi != r.edi) {
     diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("DIFF edi: NEMU=0x%x QEMU=0x%x\n", cpu.edi, r.edi);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   // 对比 eip 寄存器的值
   if (cpu.eip != r.eip) {
     diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("DIFF eip: NEMU=0x%x QEMU=0x%x\n", cpu.eip, r.eip);
+    printf("\033[0m"); // 重置颜色为默认
   }
 
   if (diff) {
     nemu_state = NEMU_END;
   }else{
+    printf("\033[1;31m"); // 设置颜色为亮红色
     Log("nemu has no diff from qemu");
+    printf("\033[0m"); // 重置颜色为默认
   }
 }
