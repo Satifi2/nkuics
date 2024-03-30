@@ -225,6 +225,7 @@ void difftest_step(uint32_t eip) {
   }
 
   if (diff) {
+    printf("stopped at eip = 0x%x\n", cpu.eip);
     nemu_state = NEMU_END;
   }else{
     printf("\033[1;32m"); // 设置颜色为亮绿色
