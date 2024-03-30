@@ -50,19 +50,26 @@ make_EHelper(neg) {
 }
 
 make_EHelper(adc) {
-  
+  // 首先将源操作数（id_src->val）加到目标操作数（id_dest->val）
   rtl_add(&t2, &id_dest->val, &id_src->val);
+  // 检查是否发生无符号数加法溢出，用于后续设置 CF（进位标志）
   rtl_sltu(&t3, &t2, &id_dest->val);
+  // 获取当前 CF 的值，并存储到 t1 中
   rtl_get_CF(&t1);
+  // 将 CF 的值加到 t2（之前加法的结果）上
   rtl_add(&t2, &t2, &t1);
+  // 将最终结果写回目标操作数
   operand_write(id_dest, &t2);
 
+  // 更新零标志（ZF）和符号标志（SF），基于 t2 的值和操作数的宽度
   rtl_update_ZFSF(&t2, id_dest->width);
 
+  // 重新检查是否发生无符号数加法溢出，用于设置 CF
   rtl_sltu(&t0, &t2, &id_dest->val);
   rtl_or(&t0, &t3, &t0);
   rtl_set_CF(&t0);
 
+  // 计算溢出标志 OF，如果源操作数和目标操作数符号相同，但结果符号不同，则设置 OF
   rtl_xor(&t0, &id_dest->val, &id_src->val);
   rtl_not(&t0);
   rtl_xor(&t1, &id_dest->val, &t2);
