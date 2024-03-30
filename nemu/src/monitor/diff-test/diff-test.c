@@ -164,7 +164,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.ecx != r.ecx) {
     diff = true;
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("DIFF ecx: NEMU=0x%x QEMU=0x%x\n", cpu.ecx, r.ecx);
+    printf("DIFF ecx: NEMU=0x%x QEMU=0x%x\n", cpu.ecx, r.ecx);
     printf("\033[0m"); // 重置颜色为默认
   }
 
@@ -172,7 +172,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.edx != r.edx) {
     diff = true;
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("DIFF edx: NEMU=0x%x QEMU=0x%x\n", cpu.edx, r.edx);
+    printf("DIFF edx: NEMU=0x%x QEMU=0x%x\n", cpu.edx, r.edx);
     printf("\033[0m"); // 重置颜色为默认
   }
 
@@ -180,7 +180,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.ebx != r.ebx) {
     diff = true;
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("DIFF ebx: NEMU=0x%x QEMU=0x%x\n", cpu.ebx, r.ebx);
+    printf("DIFF ebx: NEMU=0x%x QEMU=0x%x\n", cpu.ebx, r.ebx);
     printf("\033[0m"); // 重置颜色为默认
   }
 
@@ -188,7 +188,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.esp != r.esp) {
     diff = true;
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("DIFF esp: NEMU=0x%x QEMU=0x%x\n", cpu.esp, r.esp);
+    printf("DIFF esp: NEMU=0x%x QEMU=0x%x\n", cpu.esp, r.esp);
     printf("\033[0m"); // 重置颜色为默认
   }
 
@@ -196,7 +196,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.ebp != r.ebp) {
     diff = true;
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("DIFF ebp: NEMU=0x%x QEMU=0x%x\n", cpu.ebp, r.ebp);
+    printf("DIFF ebp: NEMU=0x%x QEMU=0x%x\n", cpu.ebp, r.ebp);
     printf("\033[0m"); // 重置颜色为默认
   }
 
@@ -204,7 +204,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.esi != r.esi) {
     diff = true;
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("DIFF esi: NEMU=0x%x QEMU=0x%x\n", cpu.esi, r.esi);
+    printf("DIFF esi: NEMU=0x%x QEMU=0x%x\n", cpu.esi, r.esi);
     printf("\033[0m"); // 重置颜色为默认
   }
 
@@ -212,7 +212,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.edi != r.edi) {
     diff = true;
     printf("\033[1;31m"); // 设置颜色为亮红色
-    Log("DIFF edi: NEMU=0x%x QEMU=0x%x\n", cpu.edi, r.edi);
+    printf("DIFF edi: NEMU=0x%x QEMU=0x%x\n", cpu.edi, r.edi);
     printf("\033[0m"); // 重置颜色为默认
   }
 
