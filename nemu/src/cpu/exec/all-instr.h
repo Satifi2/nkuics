@@ -11,10 +11,15 @@ make_EHelper(push);
 make_EHelper(pop);
 make_EHelper(sub);
 make_EHelper(ret);
+
+make_EHelper(add);
+make_EHelper(or);
+make_EHelper(adc);
+make_EHelper(sbb);
+make_EHelper(and);
+make_EHelper(sub);
 make_EHelper(xor);
-
-
-
+make_EHelper(cmp);
 
 
 
