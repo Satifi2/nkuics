@@ -3015,7 +3015,7 @@ PAL_BattleShowPlayerSummonMagicAnim(
 
    //
    // Show the animation of the summoned god
-   // TODO: There is still something missing here compared to the original game.
+   // FINISH: There is still something missing here compared to the original game.
    //
    while (g_Battle.iSummonFrame < PAL_SpriteGetNumFrames(g_Battle.lpSummonSprite) - 1)
    {
@@ -4298,7 +4298,7 @@ PAL_BattleEnemyPerformAction(
    }
    else if (g_Battle.rgEnemy[wEnemyIndex].rgwStatus[kStatusConfused] > 0)
    {
-      // TODO
+      // FINISH
    }
    else if (wMagic != 0 &&
       RandomLong(0, 9) < g_Battle.rgEnemy[wEnemyIndex].e.wMagicRate &&

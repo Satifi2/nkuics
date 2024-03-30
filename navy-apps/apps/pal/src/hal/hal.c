@@ -143,7 +143,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   if(dst->w - dx < w) { w = dst->w - dx; }
   if(dst->h - dy < h) { h = dst->h - dy; }
 
-  // TODO: color is uint32_t, what about palette?
+  // FINISH: color is uint32_t, what about palette?
   for (int i = 0; i < w; i ++)
     for (int j = 0; j < h; j ++) {
       dst->pixels[(dx + i) + (dy + j) * dst->w] = color;

@@ -25,7 +25,7 @@
 // Ported to C from C++ and modified for compatibility with Big-Endian
 // by Wei Mingzhi <whistler@openoffice.org>.
 
-// TODO: fix YJ_2 for big-endian
+// FINISH: fix YJ_2 for big-endian
 
 #include "_common.h"
 

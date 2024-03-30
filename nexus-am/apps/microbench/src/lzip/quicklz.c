@@ -630,7 +630,7 @@ static size_t qlz_decompress_core(const unsigned char *source, unsigned char *de
 				}
 
 #if QLZ_COMPRESSION_LEVEL <= 2
-				update_hash_upto(state, &last_hashed, last_destination_byte - 3); // todo, use constant
+				update_hash_upto(state, &last_hashed, last_destination_byte - 3); // FINISH, use constant
 #endif
 				return size;
 			}

@@ -6,7 +6,7 @@
 #include <time.h>
 #include "syscall.h"
 
-// TODO: discuss with syscall interface
+// FINISH: discuss with syscall interface
 #ifndef __ISA_NATIVE__
 
 // FIXME: this is temporary

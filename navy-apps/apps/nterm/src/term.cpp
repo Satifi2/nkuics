@@ -252,7 +252,7 @@ void Terminal::write(const char *str, size_t count) {
           }
           break;
         case '\t':
-          // TODO: implement it.
+          // FINISH: implement it.
           break;
         case '\r':
           cursor.x = 0;

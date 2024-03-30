@@ -50,7 +50,7 @@ Window *WindowManager::spawn(const char *path) {
 }
 
 void WindowManager::render() {
-  draw_window(background); // TODO: more gracefully handle these
+  draw_window(background); // FINISH: more gracefully handle these
   if (focus) {
     for (auto *win: windows) {
       if (win && win != focus) {

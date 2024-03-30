@@ -1079,7 +1079,7 @@ PAL_BattlePlayerEscape(
          if (gpGlobals->g.PlayerRoles.rgwHP[wPlayerRole] > 0)
          {
             //
-            // TODO: This is still not the same as the original game
+            // FINISH: This is still not the same as the original game
             //
             switch (j)
             {

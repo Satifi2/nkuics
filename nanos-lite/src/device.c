@@ -23,6 +23,6 @@ void fb_write(const void *buf, off_t offset, size_t len) {
 void init_device() {
   _ioe_init();
 
-  // TODO: print the string to array `dispinfo` with the format
+  // FINISH: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
 }

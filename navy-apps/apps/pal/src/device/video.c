@@ -658,7 +658,7 @@ VIDEO_Resize(
 --*/
 {
 #if SDL_VERSION_ATLEAST(2,0,0)
-   // TODO
+   // FINISH
 #else
    DWORD                    flags;
    PAL_LARGE SDL_Color      palette[256];
@@ -773,7 +773,7 @@ VIDEO_ToggleFullscreen(
 --*/
 {
 #if SDL_VERSION_ATLEAST(2,0,0)
-   // TODO
+   // FINISH
 #else
    DWORD                    flags;
    PAL_LARGE SDL_Color      palette[256];

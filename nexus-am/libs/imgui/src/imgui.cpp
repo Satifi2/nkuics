@@ -107,21 +107,21 @@
         io.DisplaySize.y = 1280.0f;
         io.IniFilename = "imgui.ini";
         io.RenderDrawListsFn = my_render_function;  // Setup a render function, or set to NULL and call GetDrawData() after Render() to access the render data.
-        // TODO: Fill others settings of the io structure
+        // FINISH: Fill others settings of the io structure
 
         // Load texture atlas
         // There is a default font so you don't need to care about choosing a font yet
         unsigned char* pixels;
         int width, height;
         io.Fonts->GetTexDataAsRGBA32(pixels, &width, &height);
-        // TODO: At this points you've got a texture pointed to by 'pixels' and you need to upload that your your graphic system
-        // TODO: Store your texture pointer/identifier (whatever your engine uses) in 'io.Fonts->TexID'
+        // FINISH: At this points you've got a texture pointed to by 'pixels' and you need to upload that your your graphic system
+        // FINISH: Store your texture pointer/identifier (whatever your engine uses) in 'io.Fonts->TexID'
 
         // Application main loop
         while (true)
         {
             // 1) get low-level inputs (e.g. on Win32, GetKeyboardState(), or poll your events, etc.)
-            // TODO: fill all fields of IO structure and call NewFrame
+            // FINISH: fill all fields of IO structure and call NewFrame
             ImGuiIO& io = ImGui::GetIO();
             io.DeltaTime = 1.0f/60.0f;
             io.MousePos = mouse_pos;

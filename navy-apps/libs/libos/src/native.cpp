@@ -96,7 +96,7 @@ struct StateMachine {
     if (state == Y && ch == ';') { state = WAIT_B1; return false; }
     if (state == Y && ch == 's') { 
       W = x; H = y;
-      // TODO: there is a race condition on W
+      // FINISH: there is a race condition on W
       // but generally it is harmless.
       SDL_SetWindowSize(window, W * 2, H * 2);
       texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, W, H);

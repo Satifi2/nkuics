@@ -117,7 +117,7 @@ class AppFinder: public Window {
   int n, cur, cutline;
 
 public:
-  // TODO: read icons and commands from a configuration file.
+  // FINISH: read icons and commands from a configuration file.
   AppFinder(WindowManager *wm): Window(wm, nullptr, nullptr, nullptr) {
     n = 3;
     cur = 0;
