@@ -12,7 +12,7 @@ make_EHelper(and) {
   print_asm_template2(and);
 }
 
-make_EHelper(xor) {
+make_EHelper(xor) {//有变动
   rtl_xor(&t2, &id_dest->val, &id_src->val);
   rtl_set_CF(&tzero);
   rtl_set_OF(&tzero);
