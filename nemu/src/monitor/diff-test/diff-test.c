@@ -206,12 +206,9 @@ void difftest_step(uint32_t eip) {
     Log("DIFF eip: NEMU=0x%x QEMU=0x%x\n", cpu.eip, r.eip);
   }
 
-  // 如果 diff 为 true，则输出差异信息并执行相应的错误处理
-  if (diff) {
-    // 错误处理逻辑
-  }
-
   if (diff) {
     nemu_state = NEMU_END;
+  }else{
+    Log("nemu has no diff from qemu");
   }
 }
