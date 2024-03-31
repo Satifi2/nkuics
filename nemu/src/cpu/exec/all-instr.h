@@ -34,7 +34,11 @@ make_EHelper(movsx);
 make_EHelper(test);
 make_EHelper(jcc);
 
-
+make_EHelper(rol);
+make_EHelper(ror);
+make_EHelper(shl);
+make_EHelper(shr);
+make_EHelper(sar);
 
 
 
