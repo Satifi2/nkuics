@@ -38,12 +38,17 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
+  //进行符号扩展
   rtl_sext(&t2, &id_src->val, id_src->width);
   rtl_sext(&t1, &id_dest->val, id_dest->width);
+  //执行减法操作
   rtl_sub(&t0, &t1, &t2);
+  //更新ZF和SF
   rtl_update_ZFSF(&t0, 4);
+  //判断是否有进位
   t3 = (t0 > t1);
   rtl_set_CF(&t3);
+  //判断是否有溢出
   t3 = ((((int32_t)(t1) < 0) == (((int32_t)(t2) >> 31) == 0)) && (((int32_t)(t0) < 0) != ((int32_t)(t1) < 0)));
   rtl_set_OF(&t3);
   print_asm_template2(cmp);
