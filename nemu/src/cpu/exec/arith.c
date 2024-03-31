@@ -1,10 +1,7 @@
 #include "cpu/exec.h"
 
-make_EHelper(add) {
-  rtl_sext(&t2, &id_dest->val, id_dest->width);
-  rtl_sext(&t3, &id_src->val, id_src->width);
-
-  rtl_add(&t0, &t2, &t3);
+make_EHelper(add) {//有更改
+  rtl_add(&t0, &id_dest->val,  &id_src->val);
   t1 = (t0 < t2);
   rtl_set_CF(&t1);
   t1 = ((((int32_t)(t2) < 0) == ((int32_t)(t3) < 0)) && (((int32_t)(t0) < 0) != ((int32_t)(t2) < 0)));
