@@ -7,11 +7,11 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
-  rtl_and(&t0, &id_dest->val, &id_src->val);
-  rtl_update_ZFSF(&t0, id_dest->width);
-    rtl_set_OF(&tzero);
-  rtl_set_CF(&tzero);
-  operand_write(id_dest, &t0);
+  rtl_and(&t0, &id_dest->val, &id_src->val);// id_dest->val是目的操作数的值，id_src->val是源操作数的值。
+  operand_write(id_dest, &t0);// 将结果写回目的操作数。
+  rtl_update_ZFSF(&t0, id_dest->width);// 更新零标志(ZF)和符号标志(SF)根据t0的结果
+  rtl_set_OF(&tzero); // 清除溢出标志(OF)。位与操作不会产生溢出，所以这个标志被清除。
+  rtl_set_CF(&tzero); //CF同理
   print_asm_template2(and);
 }
 
