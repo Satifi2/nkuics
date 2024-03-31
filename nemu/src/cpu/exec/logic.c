@@ -37,9 +37,13 @@ make_EHelper(or) {
 
 
 make_EHelper(sar) {
-  TODO();
+  int32_t temp = id_dest->val;
+  // rtl_sext(&temp, &temp, id_dest->width);//有变动
+  temp = ((temp << (8 * (4 - id_dest->width))) >> (8 * (4 - id_dest->width)));
+  rtl_sar(&t0, (uint32_t*)(&temp), &id_src->val);
   // unnecessary to update CF and OF in NEMU
-
+  rtl_update_ZFSF(&t0, id_dest->width);
+  operand_write(id_dest, &t0); 
   print_asm_template2(sar);
 }
 
@@ -55,6 +59,14 @@ make_EHelper(shr) {
   // unnecessary to update CF and OF in NEMU
 
   print_asm_template2(shr);
+}
+
+make_EHelper(rol) {
+
+}
+
+make_EHelper(ror) {
+
 }
 
 make_EHelper(setcc) {
