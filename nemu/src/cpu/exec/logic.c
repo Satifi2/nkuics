@@ -19,18 +19,22 @@ make_EHelper(and) {
 
 make_EHelper(xor) {//有变动
   rtl_xor(&t2, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t2);
+  rtl_update_ZFSF(&t2, id_dest->width);
   rtl_set_CF(&tzero);
   rtl_set_OF(&tzero);
-  rtl_update_ZFSF(&t2, id_dest->width);
-  operand_write(id_dest, &t2);
   print_asm_template2(xor);
 }
 
 make_EHelper(or) {
-  TODO();
-
+  rtl_or(&t0, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t0);
+  rtl_update_ZFSF(&t0, id_dest->width);
+  rtl_set_CF(&tzero);
+  rtl_set_OF(&tzero);
   print_asm_template2(or);
 }
+
 
 make_EHelper(sar) {
   TODO();
