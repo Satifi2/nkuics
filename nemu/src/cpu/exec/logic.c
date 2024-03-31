@@ -8,9 +8,9 @@ make_EHelper(test) {
 
 make_EHelper(and) {
   rtl_and(&t0, &id_dest->val, &id_src->val);
-  rtl_set_OF(&tzero);
-  rtl_set_CF(&tzero);
   rtl_update_ZFSF(&t0, id_dest->width);
+    rtl_set_OF(&tzero);
+  rtl_set_CF(&tzero);
   operand_write(id_dest, &t0);
   print_asm_template2(and);
 }
