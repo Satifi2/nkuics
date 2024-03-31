@@ -3,7 +3,7 @@
 make_EHelper(test) {
   rtl_and(&t0, &id_dest->val, &id_src->val);
   rtl_update_ZFSF(&t0, id_dest->width);
-  rtl_set_CF(&tzero);
+  rtl_set_CF(&tzero);//and不可能出现进位和溢出，因此设置标志位为0。
   rtl_set_OF(&tzero);
   print_asm_template2(test);
 }
