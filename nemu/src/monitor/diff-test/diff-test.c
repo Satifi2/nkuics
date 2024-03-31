@@ -224,6 +224,9 @@ void difftest_step(uint32_t eip) {
     printf("\033[0m"); // 重置颜色为默认
   }
 
+  //打印标志位寄存器的值
+  printf("flags: NEMU=0x%x QEMU=0x%x\n", cpu.eflags, r.eflags & 0x40);
+
   if (diff) {
     printf("\033[1;31m"); // 设置颜色为亮红色
     printf("stopped at eip = 0x%x\n", cpu.eip);
@@ -234,4 +237,5 @@ void difftest_step(uint32_t eip) {
     printf("%x: nemu has no diff from qemu\n",cpu.eip);
     printf("\033[0m"); // 重置颜色为默认
   }
+
 }
