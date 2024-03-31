@@ -225,7 +225,7 @@ void difftest_step(uint32_t eip) {
   }
 
   //打印标志位寄存器的值
-  printf("flags: NEMU=0x%x QEMU=0x%x\n", cpu.eflags, r.eflags & 0x40);
+  // printf("flags: NEMU=0x%x QEMU=0x%x\n", cpu.eflags, r.eflags & 0x40);
 
   //比较标志位寄存器
   // if (cpu.eflags != r.eflags) {
