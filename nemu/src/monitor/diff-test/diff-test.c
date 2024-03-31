@@ -228,12 +228,12 @@ void difftest_step(uint32_t eip) {
   // printf("flags: NEMU=0x%x QEMU=0x%x\n", cpu.eflags, r.eflags & 0x40);
 
   //比较标志位寄存器
-  // if (cpu.eflags != r.eflags) {
-  //   // diff = true;
-  //   printf("\033[1;31m"); // 设置颜色为亮红色
-  //   printf("DIFF eflags: NEMU=0x%x QEMU=0x%x\n", cpu.eflags, r.eflags);
-  //   printf("\033[0m"); // 重置颜色为默认
-  // }
+  if (cpu.eflags != r.eflags) {
+    // diff = true;
+    printf("\033[1;31m"); // 设置颜色为亮红色
+    printf("DIFF eflags: NEMU=0x%x QEMU=0x%x\n", cpu.eflags & 0x40, r.eflags & 0x40);
+    printf("\033[0m"); // 重置颜色为默认
+  }
 
   if (diff) {
     printf("\033[1;31m"); // 设置颜色为亮红色
