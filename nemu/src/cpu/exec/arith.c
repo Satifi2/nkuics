@@ -1,14 +1,18 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
+  //将两个要加的数进行符号扩展
   rtl_sext(&t3, &id_src->val, id_src->width);
   rtl_sext(&t2, &id_dest->val, id_dest->width);
+  //相加
   rtl_add(&t0, &id_dest->val,  &id_src->val);
-  t1 = (t0 < t2);
-  rtl_set_CF(&t1);
-  t1 = ((((int32_t)(t2) < 0) == ((int32_t)(t3) < 0)) && (((int32_t)(t0) < 0) != ((int32_t)(t2) < 0)));
   operand_write(id_dest, &t0);
   rtl_update_ZFSF(&t0, 4);
+  //是否有进位
+  t1 = (t0 < t2);
+  rtl_set_CF(&t1);
+  //是否有溢出
+  t1 = ((((int32_t)(t2) < 0) == ((int32_t)(t3) < 0)) && (((int32_t)(t0) < 0) != ((int32_t)(t2) < 0)));
   rtl_set_OF(&t1);
   print_asm_template2(add);
 }
