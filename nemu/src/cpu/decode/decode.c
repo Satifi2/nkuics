@@ -176,6 +176,10 @@ make_DHelper(mov_I2r) {
   decode_op_I(eip, id_src, true);
 }
 
+make_DHelper(SI) {
+  decode_op_SI(eip, id_dest, true);
+}
+
 /* used by unary operations */
 make_DHelper(I) {
   decode_op_I(eip, id_dest, true);
