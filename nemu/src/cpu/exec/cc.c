@@ -33,7 +33,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
         *dest = 0;
       break;
     case CC_BE:
-      if(cpu.flags.CF || cpu.flags.ZF)
+      if(cpu.flags.CF || cpu.flags.ZF)//相当于CF=1或ZF=1
         *dest = 1;
       else
         *dest = 0;
