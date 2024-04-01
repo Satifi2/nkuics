@@ -26,6 +26,12 @@ make_EHelper(lea);
 make_EHelper(inc);
 make_EHelper(dec);
 make_EHelper(nop);
+make_EHelper(not);
+make_EHelper(neg);
+make_EHelper(mul);
+make_EHelper(imul1);
+make_EHelper(div);
+make_EHelper(idiv);
 
 make_EHelper(setcc);
 
