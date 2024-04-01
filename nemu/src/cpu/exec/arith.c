@@ -57,8 +57,8 @@ make_EHelper(cmp) {
 make_EHelper(inc) {
     rtl_addi(&t2, &id_dest->val, 1);
 
-    operand_write(id_dest, &t2);
     rtl_update_ZFSF(&t2, id_dest->width);
+    operand_write(id_dest, &t2);
 
     rtl_xori(&t0, &id_dest->val, 1);
     rtl_not(&t0);
@@ -72,9 +72,18 @@ make_EHelper(inc) {
 }
 
 make_EHelper(dec) {
-  TODO();
+    rtl_subi(&t2, &id_dest->val, 1);
 
-  print_asm_template1(dec);
+    rtl_update_ZFSF(&t2, id_dest->width);
+    operand_write(id_dest, &t2);
+
+    rtl_xor(&t0, &id_dest->val, &id_src->val);
+    rtl_xor(&t1, &id_dest->val, &t2);
+    rtl_and(&t0, &t0, &t1);
+    rtl_msb(&t0, &t0, id_dest->width);
+    rtl_set_OF(&t0);
+    //printf(" ZF:%d SF:%d CF:%d OF:%d IF:%d\n",cpu.eflags.ZF,cpu.eflags.SF,cpu.eflags.CF,cpu.eflags.OF,cpu.eflags.IF);
+    print_asm_template1(dec);
 }
 
 make_EHelper(neg) {
