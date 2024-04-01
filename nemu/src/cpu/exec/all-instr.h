@@ -49,7 +49,8 @@ make_EHelper(sar);
 
 make_EHelper(jmp);
 
-
+make_EHelper(cltd);
+make_EHelper(cwtl);
 
 
 
