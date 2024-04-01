@@ -91,11 +91,6 @@ make_EHelper(ror) {//有变动
 
   operand_write(id_dest, &id_dest->val);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
-
-  // 设置CF为旋转操作的最后一个被移出的位
-  rtl_msb(&t0, &id_dest->val, id_dest->width);
-  rtl_set_CF(&t0);
-
   print_asm_template2(ror);
 }
 
