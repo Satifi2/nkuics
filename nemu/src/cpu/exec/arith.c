@@ -55,16 +55,20 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  rtl_sext(&t0, &id_dest->val, id_dest->width);
-  rtl_sext(&t2, &id_dest->val, id_dest->width);
-  t0 = t0 + 1;
-  operand_write(id_dest, &t0);
-  rtl_update_ZFSF(&t0, 4);
-  t1 = (t0 < t2);
-  rtl_set_CF(&t1);
-  t1 = ((((int32_t)(t2) < 0) == (1 < 0)) && (((int32_t)(t0) < 0) != ((int32_t)(t2) < 0)));
-  rtl_set_OF(&t1);
-  print_asm_template1(inc);
+    rtl_addi(&t2, &id_dest->val, 1);
+
+    operand_write(id_dest, &t2);
+    rtl_update_ZFSF(&t2, id_dest->width);
+
+    rtl_xori(&t0, &id_dest->val, 1);
+    rtl_not(&t0);
+    rtl_xor(&t1, &id_dest->val, &t2);
+    rtl_and(&t0, &t0, &t1);
+    rtl_msb(&t0, &t0, id_dest->width);
+    rtl_set_OF(&t0);
+    //printf(" ZF:%d SF:%d CF:%d OF:%d IF:%d\n",cpu.eflags.ZF,cpu.eflags.SF,cpu.eflags.CF,cpu.eflags.OF,cpu.eflags.IF);
+
+    print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
