@@ -55,24 +55,21 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  // 临时寄存器t2用于保存操作结果
-  rtl_addi(&t2, &id_dest->val, 1); // t2 = id_dest->val + 1
-  operand_write(id_dest, &t2); // 将结果写回目标寄存器
-  
-  rtl_update_ZFSF(&t2, id_dest->width); // 根据结果更新ZF和SF标志位
+    rtl_addi(&t2, &id_dest->val, 1);
 
-  // 检查溢出条件：如果id_dest是最大正数，则执行inc后会变为最小负数，产生溢出
-  // OF = (id_dest == 0x7FFFFFFF) ? 1 : 0; 简化为
-  // OF = (id_dest == 0x7F...F && t2 == 0x80...0)
-  rtl_li(&t0, 0x7FFFFFFF >> ((4 - id_dest->width) * 8));
-  rtl_eqi(&t1, &id_dest->val, t0); // t1 = (id_dest->val == 最大正数)
-  rtl_msb(&t0, &t2, id_dest->width); // t0 = t2的最高位，检查是否为负数
-  rtl_and(&t0, &t0, &t1); // t0 = t1 AND t0，即检查是否从最大正数变为最小负数
-  rtl_set_OF(&t0); // 根据t0的值设置OF标志位
+    operand_write(id_dest, &t2);
+    rtl_update_ZFSF(&t2, id_dest->width);
 
-  print_asm_template1(inc);
+    rtl_xori(&t0, &id_dest->val, 1);
+    rtl_not(&t0);
+    rtl_xor(&t1, &id_dest->val, &t2);
+    rtl_and(&t0, &t0, &t1);
+    rtl_msb(&t0, &t0, id_dest->width);
+    rtl_set_OF(&t0);
+    //printf(" ZF:%d SF:%d CF:%d OF:%d IF:%d\n",cpu.eflags.ZF,cpu.eflags.SF,cpu.eflags.CF,cpu.eflags.OF,cpu.eflags.IF);
+
+    print_asm_template1(inc);
 }
-
 
 make_EHelper(dec) {
   TODO();
