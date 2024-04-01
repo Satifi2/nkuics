@@ -202,6 +202,10 @@ make_DHelper(test_I) {
   decode_op_I(eip, id_src, true);
 }
 
+make_DHelper(J_gp5) {
+  decoding.jmp_eip = id_dest->val;
+}
+
 make_DHelper(SI2E) {
   assert(id_dest->width == 2 || id_dest->width == 4);
   decode_op_rm(eip, id_dest, true, NULL, false);
