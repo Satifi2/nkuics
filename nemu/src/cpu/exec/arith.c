@@ -55,8 +55,15 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  TODO();
-
+  rtl_sext(&t0, &id_dest->val, id_dest->width);
+  rtl_sext(&t2, &id_dest->val, id_dest->width);
+  t0 = t0 + 1;
+  operand_write(id_dest, &t0);
+  rtl_update_ZFSF(&t0, 4);
+  t1 = (t0 < t2);
+  rtl_set_CF(&t1);
+  t1 = ((((int32_t)(t2) < 0) == (1 < 0)) && (((int32_t)(t0) < 0) != ((int32_t)(t2) < 0)));
+  rtl_set_OF(&t1);
   print_asm_template1(inc);
 }
 
