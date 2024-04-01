@@ -52,7 +52,7 @@ make_EHelper(jmp);
 make_EHelper(cltd);
 make_EHelper(cwtl);
 
-
+make_EHelper(leave);
 
 
 
