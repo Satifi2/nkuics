@@ -88,7 +88,6 @@ make_EHelper(ror) {//有变动
     rtl_or(&id_dest->val, &id_dest->val, &t0); // 将最低位添加到结果的最高位
     id_dest->val &= mask; // 应用掩码以确保操作符大小
   }
-
   operand_write(id_dest, &id_dest->val);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
   print_asm_template2(ror);
