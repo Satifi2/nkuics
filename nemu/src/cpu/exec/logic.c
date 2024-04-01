@@ -79,6 +79,26 @@ make_EHelper(rol) {
   print_asm_template2(sar);
 }
 
+make_EHelper(ror) {//有变动
+  uint32_t mask = (1u << id_dest->width * 8) - 1; // 创建一个掩码以确保旋转不会超出操作数的大小
+  for (int i = 0; i < id_src->val; i++) {
+    rtl_andi(&t0, &id_dest->val, 1); // 获取最低位
+    rtl_shri(&id_dest->val, &id_dest->val, 1); // 将目标值右移一位
+    rtl_shli(&t0, &t0, id_dest->width * 8 - 1); // 将之前的最低位移动到最高位的位置
+    rtl_or(&id_dest->val, &id_dest->val, &t0); // 将最低位添加到结果的最高位
+    id_dest->val &= mask; // 应用掩码以确保操作符大小
+  }
+
+  operand_write(id_dest, &id_dest->val);
+  rtl_update_ZFSF(&id_dest->val, id_dest->width);
+
+  // 设置CF为旋转操作的最后一个被移出的位
+  rtl_msb(&t0, &id_dest->val, id_dest->width);
+  rtl_set_CF(&t0);
+
+  print_asm_template2(ror);
+}
+
 
 make_EHelper(setcc) {
   uint8_t subcode = decoding.opcode & 0xf;
