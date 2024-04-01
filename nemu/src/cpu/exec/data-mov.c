@@ -40,15 +40,13 @@ make_EHelper(cltd) {
   if (decoding.is_operand_size_16) {
     rtl_lr_w(&t0, R_AX);
     rtl_sext(&t0, &t0, 2);
-    t1= 16;
-    rtl_sar(&t0, &t0, &t1);
+    rtl_sari(&t0, &t0, 16);
     rtl_sr_w(R_DX, &t0);
   }
   else {
     rtl_lr_l(&t0, R_EAX);
-    t1= 31,t2=1;
-    rtl_sar(&t0, &t0, &t1);
-    rtl_sar(&t0, &t0, &t2);
+    rtl_sari(&t0, &t0, 31);
+    rtl_sari(&t0, &t0, 1);
     rtl_sr_l(R_EDX, &t0);
   }
   print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");
