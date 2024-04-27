@@ -49,16 +49,11 @@ typedef struct {
     uint32_t eflags;
   };
 
-  struct {
-    uint16_t limit;
-    uint32_t base;
-  } idtr;
-  
-  uint16_t cs;
-
-  uint32_t cr0;
-  uint32_t cr3;
-  bool INTR;
+  unsigned int cs;
+	struct{
+		uint16_t limit;
+		uint32_t base;
+	}idtr;
   
 } CPU_state;
 
