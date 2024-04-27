@@ -24,7 +24,7 @@ make_EHelper(mov_cr2r) {
   diff_test_skip_qemu();
 #endif
 }
-
+extern void raise_intr(uint8_t NO, vaddr_t ret_addr);
 make_EHelper(int) {
   raise_intr(id_dest->val, *eip);
 
