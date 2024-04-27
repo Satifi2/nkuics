@@ -4,10 +4,15 @@ void diff_test_skip_qemu();
 void diff_test_skip_nemu();
 
 make_EHelper(lidt) {
-  TODO();
+  rtl_lm(&t0, &id_dest->addr, 2);
+  cpu.idtr.limit = t0;
+  t1 = id_dest->addr + 2;
+  rtl_lm(&t0, &t1, 4);
+  cpu.idtr.base = (t0 & (decoding.is_operand_size_16 ? 0x00FFFFFF : 0xFFFFFFFF));
 
   print_asm_template1(lidt);
 }
+
 
 make_EHelper(mov_r2cr) {
   TODO();
