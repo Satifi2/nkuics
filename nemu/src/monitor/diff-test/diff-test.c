@@ -243,7 +243,7 @@ void difftest_step(uint32_t eip) {
     nemu_state = NEMU_END;
   }else{
     printf("\033[1;32m"); // 设置颜色为亮绿色
-    printf("%x:%x nemu has no diff from qemu\n",cpu.eip,memory_read(cpu.eip));
+    printf("%x:%x nemu has no diff from qemu\n",cpu.eip,vaddr_read(cpu.eip,4));
     printf("\033[0m"); // 重置颜色为默认
   }
 
