@@ -2,7 +2,7 @@
 #include "syscall.h"
 
 enum {
-  SYS_none,
+  SYS_none
 };
 
 _RegSet* do_syscall(_RegSet *r) {
