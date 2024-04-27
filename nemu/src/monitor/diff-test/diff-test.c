@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <sys/prctl.h>
 #include <signal.h>
+#include<monitor/monitor.h>
 
 #include "protocol.h"
 #include <stdlib.h>
