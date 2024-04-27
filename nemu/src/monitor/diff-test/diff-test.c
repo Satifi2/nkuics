@@ -240,7 +240,7 @@ void difftest_step(uint32_t eip) {
     printf("\033[1;31m"); // 设置颜色为亮红色
     printf("stopped at eip = 0x%x\n", cpu.eip);
     printf("\033[0m"); // 重置颜色为默认
-    // nemu_state = NEMU_END;
+    nemu_state = NEMU_END;
   }else{
     printf("\033[1;32m"); // 设置颜色为亮绿色
     uint32_t inst = vaddr_read(cpu.eip,4);
