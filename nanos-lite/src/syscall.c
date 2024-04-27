@@ -34,7 +34,7 @@ _RegSet* do_syscall(_RegSet *r) {
 
     switch (a[0]) {
     case SYS_none_:
-      printf("sys_none,%d,%d",SYS_none_,SYS_exit_);
+      // printf("sys_none,%d,%d",SYS_none_,SYS_exit_);
         result = 1;
         break;
     case SYS_exit_:
