@@ -2,7 +2,26 @@
 #include "syscall.h"
 
 enum {
-  SYS_none
+  SYS_none_,
+  SYS_open_,
+  SYS_read_,
+  SYS_write_,
+  SYS_exit_,
+  SYS_kill_,
+  SYS_getpid_,
+  SYS_close_,
+  SYS_lseek_,
+  SYS_brk_,
+  SYS_fstat_,
+  SYS_time_,
+  SYS_signal_,
+  SYS_execve_,
+  SYS_fork_,
+  SYS_link_,
+  SYS_unlink_,
+  SYS_wait_,
+  SYS_times_,
+  SYS_gettimeofday_
 };
 
 _RegSet* do_syscall(_RegSet *r) {
@@ -14,11 +33,11 @@ _RegSet* do_syscall(_RegSet *r) {
     a[3] = SYSCALL_ARG4(r);
 
     switch (a[0]) {
-    case SYS_none:
-      printf("sys_none,%d,%d",SYS_none,SYS_exit);
+    case SYS_none_:
+      printf("sys_none,%d,%d",SYS_none_,SYS_exit_);
         result = 1;
         break;
-    case SYS_exit:
+    case SYS_exit_:
         printf("sys_eixt");
         _halt(a[1]);
         break;
