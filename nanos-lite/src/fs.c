@@ -33,6 +33,8 @@ void init_fs() {
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
+  Log("pathname %s\n", pathname);
+  Log("file_table[FD_DISPINFO].name %s\n", file_table[FD_DISPINFO].name);
 	int i;
 	for (i = 0; i < NR_FILES; i++) {
 		if (strcmp(file_table[i].name, pathname) == 0) {
