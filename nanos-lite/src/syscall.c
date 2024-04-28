@@ -24,6 +24,8 @@ enum {
   SYS_gettimeofday_
 };
 
+extern char _end;
+
 uintptr_t sys_write(int fd, const void *buf, size_t count) {
   // Log("  test how it work \n");
 	uintptr_t i = 0;
