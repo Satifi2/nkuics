@@ -33,8 +33,7 @@ int _write(int fd, void *buf, size_t count){
 
 extern char _end;
 static intptr_t pbreak=(intptr_t)&_end;
-void *sbrk(intptr_t increment){
-    printf("original sbrk is called\n");
+void *_sbrk(intptr_t increment){
     intptr_t old_pb = pbreak;
     if (_syscall_(SYS_brk, old_pb + increment, 0, 0) == 0)
     {
