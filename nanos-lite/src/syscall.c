@@ -45,14 +45,15 @@ _RegSet* do_syscall(_RegSet *r) {
 
     switch (a[0]) {
     case SYS_none_:
-      // printf("sys_none,%d,%d",SYS_none_,SYS_exit_);
+        printf("sys_none,%d,%d,%d\n",SYS_none_,SYS_exit_,SYS_write_);
         result = 1;
         break;
     case SYS_exit_:
-        printf("sys_eixt");
+        printf("sys_eixt\n");
         _halt(a[1]);
         break;
     case SYS_write_: 
+        printf("sys_write\n");
         result = sys_write(a[1], (void *)a[2], a[3]);
         break;
     default: panic("Unhandled syscall ID = %d", a[0]);
