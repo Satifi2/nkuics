@@ -35,6 +35,13 @@ void init_fs() {
 int fs_open(const char *pathname, int flags, int mode) {
   Log("pathname %s\n", pathname);
   Log("file_table[FD_DISPINFO].name %s\n", file_table[FD_DISPINFO].name);
+  // Log the total number of files
+  Log("Total number of files: %d\n", NR_FILES);
+
+  // Log all file names
+  for (int i = 0; i < NR_FILES; i++) {
+      Log("File %d: %s\n", i, file_table[i].name);
+  }
 	int i;
 	for (i = 0; i < NR_FILES; i++) {
 		if (strcmp(file_table[i].name, pathname) == 0) {
