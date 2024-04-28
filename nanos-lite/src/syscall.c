@@ -55,11 +55,11 @@ _RegSet* do_syscall(_RegSet *r) {
         _halt(a[1]);
         break;
     case SYS_write_: 
-        Log("sys_write,%d,%d,%d,%d\n",SYS_none_,SYS_exit_,SYS_write_,SYS_brk_);
+        // Log("sys_write,%d,%d,%d,%d\n",SYS_none_,SYS_exit_,SYS_write_,SYS_brk_);
         result = sys_write(a[1], (void *)a[2], a[3]);
         break;
     case SYS_brk_:
-        Log("sys_brk\n");
+        // Log("sys_brk\n");
         result = 0;
         break;
     default: panic("Unhandled syscall ID = %d", a[0]);
