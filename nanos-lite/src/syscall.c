@@ -51,7 +51,7 @@ _RegSet* do_syscall(_RegSet *r) {
         result = 1;
         break;
     case SYS_exit_:
-        printf("sys_eixt\n");
+        Log("sys_eixt\n");
         _halt(a[1]);
         break;
     case SYS_write_: 
