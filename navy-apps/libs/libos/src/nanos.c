@@ -12,7 +12,7 @@
 // FIXME: this is temporary
 
 int _syscall_(int type, uintptr_t a0, uintptr_t a1, uintptr_t a2){
-  // printf(" _syscall_ is called\n");
+  printf(" _syscall_ is called\n");
   int ret = -1;
   asm volatile("int $0x80": "=a"(ret): "a"(type), "b"(a0), "c"(a1), "d"(a2));
   return ret;
