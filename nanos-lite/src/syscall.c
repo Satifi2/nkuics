@@ -50,11 +50,11 @@ _RegSet* do_syscall(_RegSet *r) {
         Log("sys_none\n");
         result = 1;
         break;
-    case SYS_exit:
+    case SYS_exit_:
         Log("sys_eixt\n");
         _halt(a[1]);
         break;
-    case SYS_write: 
+    case SYS_write_: 
         Log("sys_write\n");
         result = sys_write(a[1], (void *)a[2], a[3]);
         break;
