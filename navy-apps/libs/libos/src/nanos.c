@@ -12,7 +12,7 @@
 // FIXME: this is temporary
 
 int _syscall_(int type, uintptr_t a0, uintptr_t a1, uintptr_t a2){
-  printf(" _syscall_ is called\n");
+  // printf(" _syscall_ is called\n");
   int ret = -1;
   asm volatile("int $0x80": "=a"(ret): "a"(type), "b"(a0), "c"(a1), "d"(a2));
   return ret;
@@ -27,15 +27,15 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count){
-  printf(" _write is called here\n");
+  // printf(" _write is called here\n");
 	return _syscall_(SYS_write, fd, (uintptr_t)buf, count); 
   //_exit(SYS_write);
 }
 
 extern char _end;
 static intptr_t pbreak=(intptr_t)&_end;
-void *_sbrk_r(intptr_t increment){
-    printf(" _sbrk_r is called\n");
+void *_sbrk(intptr_t increment){
+    // printf(" _sbrk is called\n");
     intptr_t old_pb = pbreak;
     if (_syscall_(SYS_brk, old_pb + increment, 0, 0) == 0)
     {
