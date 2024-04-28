@@ -32,9 +32,15 @@ int _write(int fd, void *buf, size_t count){
 	return _syscall_(SYS_write, fd, (uintptr_t)buf, count); 
   //_exit(SYS_write);
 }
-
 void *_sbrk(intptr_t increment){
-  return (void *)-1;
+	intptr_t old_program_break = program_break;
+  if (_syscall_(SYS_brk, old_program_break + increment, 0, 0) == 0) {
+		program_break += increment;	
+		return (void *)old_program_break;
+	}
+	else {
+		return (void *)-1;
+	}
 }
 
 int _read(int fd, void *buf, size_t count) {
