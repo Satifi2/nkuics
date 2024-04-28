@@ -25,6 +25,7 @@ enum {
 };
 
 uintptr_t sys_write(int fd, const void *buf, size_t count) {
+  printf("  test how it work \n");
 	uintptr_t i = 0;
 	if (fd == 1 || fd == 2) {
 		for(; count > 0; count--) {
