@@ -43,10 +43,11 @@ _RegSet* do_syscall(_RegSet *r) {
     a[1] = SYSCALL_ARG2(r);
     a[2] = SYSCALL_ARG3(r);
     a[3] = SYSCALL_ARG4(r);
+    Log("do_syscall:%d,%d,%d,%d",a[0],a[1],a[2],a[3]);
 
     switch (a[0]) {
     case SYS_none_:
-        Log("sys_none,%d,%d,%d,%d\n",SYS_none_,SYS_exit_,SYS_write_,SYS_brk_);
+        // Log("sys_none,%d,%d,%d,%d\n",SYS_none_,SYS_exit_,SYS_write_,SYS_brk_);
         result = 1;
         break;
     case SYS_exit_:
@@ -54,11 +55,11 @@ _RegSet* do_syscall(_RegSet *r) {
         _halt(a[1]);
         break;
     case SYS_write_: 
-        Log("sys_none,%d,%d,%d,%d\n",SYS_none_,SYS_exit_,SYS_write_,SYS_brk_);
+        // Log("sys_none,%d,%d,%d,%d\n",SYS_none_,SYS_exit_,SYS_write_,SYS_brk_);
         result = sys_write(a[1], (void *)a[2], a[3]);
         break;
     case SYS_brk_:
-        Log("sys_brk\n");
+        // Log("sys_brk\n");
         result = 0;
         break;
     default: panic("Unhandled syscall ID = %d", a[0]);
