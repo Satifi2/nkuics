@@ -25,6 +25,7 @@ enum {
 };
 
 extern char _end;
+extern int fs_open(const char *pathname, int flags, int mode);
 
 uintptr_t sys_write(int fd, const void *buf, size_t count) {
   // Log("  test how it work \n");
