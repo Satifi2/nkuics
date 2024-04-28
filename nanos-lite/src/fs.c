@@ -110,3 +110,7 @@ off_t fs_lseek(int fd, off_t offset, int whence) {
     }
     return result;
 }
+
+int fs_close(int fd) {
+	return 0;
+}

@@ -29,6 +29,7 @@ extern int fs_open(const char *pathname, int flags, int mode);
 extern ssize_t fs_read(int fd, void *buf, size_t len);
 extern ssize_t fs_write(int fd, const void *buf, size_t len);
 extern off_t fs_lseek(int fd, off_t offset, int whence);
+extern int fs_close(int fd);
 
 uintptr_t sys_write(int fd, const void *buf, size_t count) {
   // Log("  test how it work \n");
@@ -78,7 +79,9 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_lseek_:
         result = fs_lseek(a[1], a[2], a[3]);
         break;
-    
+    case SYS_close:
+		result = fs_close(a[1]);
+		break;
 
     default: panic("Unhandled syscall ID = %d", a[0]);
     }
