@@ -24,6 +24,17 @@ enum {
   SYS_gettimeofday_
 };
 
+uintptr_t sys_write(int fd, const void *buf, size_t count) {
+	uintptr_t i = 0;
+	if (fd == 1 || fd == 2) {
+		for(; count > 0; count--) {
+			_putc(((char*)buf)[i]);
+			i++;;
+		}
+	}
+	return i;
+}
+
 _RegSet* do_syscall(_RegSet *r) {
   
     uintptr_t a[4],result=-1;
