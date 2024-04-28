@@ -29,7 +29,7 @@ extern void fb_write(const void *buf, off_t offset, size_t len);
 extern size_t events_read(void *buf, size_t len);
 
 void init_fs() {
-  // FINISH: initialize the size of /dev/fb
+	file_table[FD_FB].size = _screen.height * _screen.width * 4;
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
