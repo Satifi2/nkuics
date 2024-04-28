@@ -52,6 +52,9 @@ _RegSet* do_syscall(_RegSet *r) {
         printf("sys_eixt");
         _halt(a[1]);
         break;
+    case SYS_write_: 
+        result = sys_write(a[1], (void *)a[2], a[3]);
+        break;
     default: panic("Unhandled syscall ID = %d", a[0]);
     }
 
