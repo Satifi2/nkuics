@@ -72,7 +72,7 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_read_:
         result = fs_read(a[1], (void *)a[2], a[3]);
         break;
-
+    
 
     default: panic("Unhandled syscall ID = %d", a[0]);
     }
