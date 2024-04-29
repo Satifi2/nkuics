@@ -79,7 +79,7 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_lseek_:
         result = fs_lseek(a[1], a[2], a[3]);
         break;
-    case SYS_close:
+    case SYS_close_:
 		result = fs_close(a[1]);
 		break;
 
