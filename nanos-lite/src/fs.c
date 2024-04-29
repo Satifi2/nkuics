@@ -87,28 +87,27 @@ size_t fs_filesz(int fd) {
 
 ssize_t fs_write(int fd, const void *buf, size_t len) {
 	ssize_t fs_size = fs_filesz(fd);
-	//Log("in the write, fd = %d, file size = %d, len = %d, file open_offset = %d\n", fd, fs_size, len, file_table[fd].open_offset);
-  switch(fd)
-  {
-    case FD_STDOUT:
-    case FD_STDERR:
-      for(int i = 0; i < len; i++)
-      {
-        _putc(((char*)buf)[i]);
-      }
-      break;
-  
-    default:
-      // write to ramdisk
-      if(file_table[fd].open_offset >= fs_size)
-        return 0;
-      if(file_table[fd].open_offset + len > fs_size)
-        len = fs_size - file_table[fd].open_offset;
-      ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
-      file_table[fd].open_offset += len;
-      break;
-  }
-  return len;
+	switch(fd) {
+		case FD_STDOUT:
+		case FD_STDERR:
+			for(int i = 0; i < len; i++) {
+					_putc(((char*)buf)[i]);
+			}
+			break;
+		case FD_FB:
+			fb_write(buf, file_table[fd].open_offset, len);
+			file_table[fd].open_offset += len;
+			break;
+		default:
+			if(file_table[fd].open_offset >= fs_size)
+				return 0;	
+			if(file_table[fd].open_offset + len > fs_size)
+				len = fs_size - file_table[fd].open_offset;
+			ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+			file_table[fd].open_offset += len;
+			break;
+	}
+	return len;
 }
 
 off_t fs_lseek(int fd, off_t offset, int whence) {
