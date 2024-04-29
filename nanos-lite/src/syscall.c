@@ -50,7 +50,7 @@ _RegSet* do_syscall(_RegSet *r) {
     a[1] = SYSCALL_ARG2(r);
     a[2] = SYSCALL_ARG3(r);
     a[3] = SYSCALL_ARG4(r);
-    Log("do_syscall:%d,%d,%d,%d",a[0],a[1],a[2],a[3]);
+    Log("do_syscall:%d,%d,%d,%d   sys_close %d",a[0],a[1],a[2],a[3],SYS_close_);
 
     switch (a[0]) {
     case SYS_none_:
