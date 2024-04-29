@@ -39,9 +39,9 @@ int fs_open(const char *pathname, int flags, int mode) {
   Log("Total number of files: %d\n", NR_FILES);
 
   // Log all file names
-  for (int i = 0; i < NR_FILES; i++) {
-      Log("File %d: %s\n", i, file_table[i].name);
-  }
+  // for (int i = 0; i < NR_FILES; i++) {
+  //     Log("File %d: %s\n", i, file_table[i].name);
+  // }
 	int i;
 	for (i = 0; i < NR_FILES; i++) {
 		if (strcmp(file_table[i].name, pathname) == 0) {
